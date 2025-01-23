@@ -4,6 +4,7 @@ import Dashboard from "./pages/Dashboard";
 import Reports from "./pages/Reports/Reports";
 import DailyReport from "./pages/Reports/DailyReport"; // Import the DailyReport component
 import Layout from "./components/Layout"; 
+import Home from './pages/Home';
 
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
@@ -18,6 +19,7 @@ const App = () => (
 
       {/* Route for reports page */}
       <Route path="/reports" element={<Reports />} />
+      <Route path="/home" element={<Home/>}/>
 
       {/* Route for Daily Report page */}
       <Route path="/reports/daily"  element={ <Layout><DailyReport /></Layout>}

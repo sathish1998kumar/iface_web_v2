@@ -10,11 +10,12 @@ const Table = ({ data }) => {
     if (!filterColumn || !search) return true; // If no column or search input, return all data
 
     const value = row[filterColumn];
+    console.log(value);
     return value
       ? value.toString().toLowerCase().includes(search.toLowerCase())
       : false;
   });
-
+// console.log(filteredData);
   return (
     <div className="overflow-x-auto bg-white shadow-md rounded-lg p-4">
       {/* Filter and Search Options */}
