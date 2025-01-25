@@ -3,6 +3,8 @@ import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import Reports from "./pages/Reports/Reports";
 import DailyReport from "./pages/Reports/DailyReport";
+import ConsolidatedReport from "./pages/Reports/ConsolidatedReport";
+
 import Layout from "./components/Layout";
 import AttendanceDashboard from "./pages/AttendanceDashboard"; // Import the AttendanceDashboard component
 import NotFound from "./pages/NotFound"; // Import the NotFound (404 Page) component
@@ -23,6 +25,8 @@ const App = () => (
 
       {/* Route for Daily Report page */}
       <Route path="/reports/daily" element={<Layout><DailyReport /></Layout>} />
+      <Route path="/reports/consolidated" element={<Layout><ConsolidatedReport /></Layout>} />
+
 
       {/* Route for AttendanceDashboard after login */}
       <Route path="/attendance-dashboard" element={<AttendanceDashboard />} />
