@@ -246,8 +246,15 @@ const ConsolidatedReport = () => {
             {headerGroups.map((headerGroup) => (
               <tr {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()} className="p-2 text-left border-b border-gray-300">
+                  <th {...column.getHeaderProps(column.getSortByToggleProps())} className="p-2 text-left border-b border-gray-300">
                     {column.render("Header")}
+                    <span>
+                      {column.isSorted
+                        ? column.isSortedDesc
+                          ? ' 🔽'
+                          : ' 🔼'
+                        : ''}
+                    </span>
                   </th>
                 ))}
                 <th className="p-2 text-left border-b border-gray-300">Actions</th>

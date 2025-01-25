@@ -1,4 +1,3 @@
-import React from "react";
 import Card from "../components/Card";
 import MonthlyChart from "../charts/MonthlyChart";
 import DailyChart from "../charts/DailyChart";

@@ -48,8 +48,8 @@ const Login = () => {
     const staticOtp = "123456";
     if (otp === staticOtp) {
       setErrorMessage("");
-      sessionStorage.setItem("isLoggedIn", true);
-      navigate('/attendance-dashboard');
+      sessionStorage.setItem("isLoggedIn", "true");
+      navigate("/attendance-dashboard");
     } else {
       setErrorMessage("Invalid OTP");
     }

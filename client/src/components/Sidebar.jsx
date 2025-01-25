@@ -1,11 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Sidebar = () => {
   const [isCollapsed, setIsCollapsed] = useState(true); // Sidebar collapsed state
+  const navigate = useNavigate(); // Hook to navigate programmatically
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
+  };
+  const handleLogout = () => {
+    // Clear session storage or authentication tokens
+    localStorage.removeItem("authToken"); // Example: Clear token from local storage
+    sessionStorage.clear(); // Clear session storage if used
+
+    // Redirect to login page
+    navigate("/login"); // Adjust the path as needed
   };
 
   return (
@@ -222,17 +231,15 @@ const Sidebar = () => {
 
             {/* Logout */}
             <li>
-              <NavLink
-                to="/"
-                className="flex items-center px-4 py-3 bg-red-600 text-white hover:bg-red-700 hover:text-indigo-300 rounded-md transition-all duration-300"
+              <button
+                onClick={handleLogout}
+                className="flex items-center w-full px-4 py-3 bg-red-600 text-white hover:bg-red-700 hover:text-indigo-300 rounded-md transition-all duration-300"
               >
                 <i className="fas fa-sign-out-alt text-sm"></i>
-                <span
-                  className={`ml-4 text-sm ${isCollapsed ? "hidden" : ""}`}
-                >
+                <span className={`ml-4 text-sm ${isCollapsed ? "hidden" : ""}`}>
                   Logout
                 </span>
-              </NavLink>
+              </button>
             </li>
           </ul>
         </nav>

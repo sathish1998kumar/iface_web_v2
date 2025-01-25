@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate from React Router
 
 const Navbar = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
     sessionStorage.clear(); // Clear session storage if used
 
     // Redirect to login page
-    navigate("/"); // Adjust the path as needed
+    navigate("/login"); // Adjust the path as needed
   };
 
   return (
