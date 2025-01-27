@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
@@ -185,38 +185,38 @@ const DailyReport = () => {
 
       {/* Employee Table */}
       <div className="overflow-x-auto">
-        <table className="min-w-full border border-gray-300 text-left">
+        <table className="min-w-full border border-gray-300 text-left text-lg">
           <thead className="bg-gray-200 sticky top-0">
             <tr>
-              <th className="border px-4 py-2">Photo</th>
-              <th className="border px-4 py-2">ID</th>
-              <th className="border px-4 py-2">Name</th>
-              <th className="border px-4 py-2">Designation</th>
-              <th className="border px-4 py-2">Attendance</th>
-              <th className="border px-4 py-2">Work Hours</th>
-              <th className="border px-4 py-2">Check-In</th>
-              <th className="border px-4 py-2">Check-Out</th>
-              <th className="border px-4 py-2">Zone</th>
-              <th className="border px-4 py-2">Yard</th>
-              <th className="border px-4 py-2">Date</th>
+              <th className="border px-6 py-4">Photo</th>
+              <th className="border px-6 py-4">ID</th>
+              <th className="border px-6 py-4">Name</th>
+              <th className="border px-6 py-4">Designation</th>
+              <th className="border px-6 py-4">Attendance</th>
+              <th className="border px-6 py-4">Work Hours</th>
+              <th className="border px-6 py-4">Check-In</th>
+              <th className="border px-6 py-4">Check-Out</th>
+              <th className="border px-6 py-4">Zone</th>
+              <th className="border px-6 py-4">Yard</th>
+              <th className="border px-6 py-4">Date</th>
             </tr>
           </thead>
           <tbody>
             {filteredEmployees.map((employee) => (
               <tr key={employee.id}>
-                <td className="border px-4 py-2">
-                  <img src={employee.photo} alt={employee.name} className="w-10 h-10 rounded-full" />
+                <td className="border px-6 py-4">
+                  <img src={employee.photo} alt={employee.name} className="w-16 h-16 full" />
                 </td>
-                <td className="border px-4 py-2">{employee.id}</td>
-                <td className="border px-4 py-2">{employee.name}</td>
-                <td className="border px-4 py-2">{employee.designation}</td>
-                <td className="border px-4 py-2">{employee.attendance}</td>
-                <td className="border px-4 py-2">{employee.workHours}</td>
-                <td className="border px-4 py-2">{employee.checkIn}</td>
-                <td className="border px-4 py-2">{employee.checkOut}</td>
-                <td className="border px-4 py-2">{employee.zone}</td>
-                <td className="border px-4 py-2">{employee.yard}</td>
-                <td className="border px-4 py-2">
+                <td className="border px-6 py-4">{employee.id}</td>
+                <td className="border px-6 py-4">{employee.name}</td>
+                <td className="border px-6 py-4">{employee.designation}</td>
+                <td className="border px-6 py-4">{employee.attendance}</td>
+                <td className="border px-6 py-4">{employee.workHours}</td>
+                <td className="border px-6 py-4">{employee.checkIn}</td>
+                <td className="border px-6 py-4">{employee.checkOut}</td>
+                <td className="border px-6 py-4">{employee.zone}</td>
+                <td className="border px-6 py-4">{employee.yard}</td>
+                <td className="border px-6 py-4">
                   {new Date(employee.date).toLocaleDateString()}
                 </td>
               </tr>

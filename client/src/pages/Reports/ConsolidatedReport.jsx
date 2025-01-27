@@ -4,6 +4,7 @@ import { useTable, usePagination, useGlobalFilter, useSortBy } from "react-table
 import * as XLSX from "xlsx";
 import { jsPDF } from "jspdf";
 import "jspdf-autotable";
+import PropTypes from "prop-types";
 
 // Modal Component with Delete and Edit Options
 const StyledModal = ({ isOpen, onClose, rowData, onDelete, onEdit, onChange }) => {
@@ -148,10 +149,9 @@ const ConsolidatedReport = () => {
     headerGroups,
     rows,
     prepareRow,
-    state: { pageIndex, pageSize },
+    state: { pageSize },
     canPreviousPage,
     canNextPage,
-    pageOptions,
     gotoPage,
     nextPage,
     previousPage,
@@ -221,7 +221,9 @@ const ConsolidatedReport = () => {
 
   return (
     <div className="container mt-4 mx-auto">
-      {/* Actions */}
+      {/* Actions */}           <h1 className="text-2xl font-bold mb-4">Consolidated Report</h1>
+
+      
       <div className="flex justify-between items-center mb-4">
         <input
           type="text"
@@ -243,10 +245,10 @@ const ConsolidatedReport = () => {
       <div className="overflow-x-auto shadow-lg rounded-lg">
         <table {...getTableProps()} className="min-w-full table-auto border-collapse border border-gray-300">
           <thead className="bg-gray-100">
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroups.map((headerGroup, index) => (
+              <tr key={index} {...headerGroup.getHeaderGroupProps()}>
                 {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps(column.getSortByToggleProps())} className="p-2 text-left border-b border-gray-300">
+                  <th key={column.id} {...column.getHeaderProps(column.getSortByToggleProps())} className="p-2 text-left border-b border-gray-300">
                     {column.render("Header")}
                     <span>
                       {column.isSorted
@@ -265,9 +267,9 @@ const ConsolidatedReport = () => {
             {rows.map((row) => {
               prepareRow(row);
               return (
-                <tr {...row.getRowProps()}>
+                <tr key={row.id} {...row.getRowProps()}>
                   {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()} className="p-2 border-b border-gray-200">
+                    <td key={cell.column.id} {...cell.getCellProps()} className="p-2 border-b border-gray-200">
                       {cell.render("Cell")}
                     </td>
                   ))}
@@ -354,6 +356,14 @@ const ConsolidatedReport = () => {
       />
     </div>
   );
+};
+StyledModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  rowData: PropTypes.object,
+  onDelete: PropTypes.func.isRequired,
+  onEdit: PropTypes.func.isRequired,
+  onChange: PropTypes.func.isRequired,
 };
 
 export default ConsolidatedReport;
