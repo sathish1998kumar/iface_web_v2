@@ -19,7 +19,6 @@ const App = () => (
     <Routes>
       {/* Route for login page */}
       <Route path="/" element={<Login />} />
-
       <Route path="/login" element={<Login />} />
 
       {/* Protected route for dashboard page */}
@@ -33,8 +32,6 @@ const App = () => (
       <Route path="/reports/consolidated" element={<ProtectedRoute><Layout><ConsolidatedReport /></Layout></ProtectedRoute>} />
       <Route path="/reports/time-based" element={<ProtectedRoute><Layout><TimeBasedReport /></Layout></ProtectedRoute>} />
       <Route path="/reports/incharge-monthly" element={<ProtectedRoute><Layout><InchargeMonthlyReport /></Layout></ProtectedRoute>} />
-
-
 
       {/* Protected route for AttendanceDashboard after login */}
       <Route path="/attendance-dashboard" element={<ProtectedRoute><AttendanceDashboard /></ProtectedRoute>} />
