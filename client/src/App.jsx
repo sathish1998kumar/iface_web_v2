@@ -6,6 +6,9 @@ import DailyReport from "./pages/Reports/DailyReport";
 import ConsolidatedReport from "./pages/Reports/ConsolidatedReport";
 import TimeBasedReport from "./pages/Reports/TimeBasedReport";
 import InchargeMonthlyReport from "./pages/Reports/InchargeMonthlyReport";
+import DesignationReport from "./pages/Reports/DesignationReport";
+import MonthlyReport from "./pages/Reports/MonthlyReport";
+
 
 import Layout from "./components/Layout";
 import AttendanceDashboard from "./pages/AttendanceDashboard"; // Import the AttendanceDashboard component
@@ -32,7 +35,10 @@ const App = () => (
       <Route path="/reports/consolidated" element={<ProtectedRoute><Layout><ConsolidatedReport /></Layout></ProtectedRoute>} />
       <Route path="/reports/time-based" element={<ProtectedRoute><Layout><TimeBasedReport /></Layout></ProtectedRoute>} />
       <Route path="/reports/incharge-monthly" element={<ProtectedRoute><Layout><InchargeMonthlyReport /></Layout></ProtectedRoute>} />
+      <Route path="/reports/designation" element={<ProtectedRoute><Layout><DesignationReport /></Layout></ProtectedRoute>} />
+      <Route path="/reports/monthly" element={<ProtectedRoute><Layout><MonthlyReport /></Layout></ProtectedRoute>} />
 
+    
       {/* Protected route for AttendanceDashboard after login */}
       <Route path="/attendance-dashboard" element={<ProtectedRoute><AttendanceDashboard /></ProtectedRoute>} />
 

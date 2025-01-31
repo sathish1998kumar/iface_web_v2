@@ -1,0 +1,65 @@
+[
+    {
+      "id": 1,
+      "designation": "Animator",
+      "total": 22,
+      "present": 13,
+      "absent": 9
+    },
+    {
+      "id": 2,
+      "designation": "Incharge",
+      "total": 61,
+      "present": 49,
+      "absent": 12
+    },
+    {
+      "id": 3,
+      "designation": "MCC/SHG",
+      "total": 25,
+      "present": 20,
+      "absent": 5
+    },
+    {
+      "id": 4,
+      "designation": "PER/CW",
+      "total": 416,
+      "present": 325,
+      "absent": 91
+    },
+    {
+      "id": 5,
+      "designation": "PT/DBC",
+      "total": 305,
+      "present": 218,
+      "absent": 87
+    },
+    {
+      "id": 6,
+      "designation": "SHG/CW",
+      "total": 1047,
+      "present": 836,
+      "absent": 211
+    },
+    {
+      "id": 7,
+      "designation": "SHG/DRIVER",
+      "total": 192,
+      "present": 154,
+      "absent": 38
+    },
+    {
+      "id": 8,
+      "designation": "SI",
+      "total": 0,
+      "present": 0,
+      "absent": 0
+    },
+    {
+      "id": 9,
+      "designation": "SO",
+      "total": 0,
+      "present": 0,
+      "absent": 0
+    }
+  ]  

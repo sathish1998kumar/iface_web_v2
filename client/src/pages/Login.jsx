@@ -48,13 +48,14 @@ const Login = () => {
     const staticOtp = "123456";
     if (otp === staticOtp) {
       setErrorMessage("");
-      sessionStorage.setItem("isLoggedIn", "true");
+      // Use localStorage instead of sessionStorage
+      localStorage.setItem("isLoggedIn", "true");
       navigate("/attendance-dashboard");
     } else {
       setErrorMessage("Invalid OTP");
     }
   };
-
+  
   return (
     <div className="min-h-[100vh] bg-gradient-to-r from-green-300 via-blue-200 to-purple-300 text-gray-900 flex justify-center items-center overflow-hidden">
       <div className="max-w-screen-lg m-0 sm:m-8 bg-white shadow-lg sm:rounded-xl flex flex-col lg:flex-row justify-between flex-1 transform transition-all duration-500 hover:scale-105 rounded-[50px]">

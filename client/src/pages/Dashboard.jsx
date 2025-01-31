@@ -86,38 +86,38 @@ const Dashboard = () => {
         <div className="p-8">
           <h1 className="text-4xl font-semibold text-gray-800 mb-6">Dashboard</h1>
 
-          {/* Summary Cards with Gradient Backgrounds */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-gradient-to-r from-blue-50 to-white p-6 rounded-lg shadow-md text-center">
-              <FaUsers className="text-5xl text-blue-600 mb-4" />
+           {/* Summary Cards */}
+           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-indigo-100 p-6 rounded-lg shadow-md text-center">
+              <FaUsers className="text-5xl text-indigo-600 mb-4" />
               <h3 className="text-xl font-semibold text-gray-700 mb-2">Total Employees</h3>
-              <div className="text-4xl font-bold text-blue-600">{dashboardData.totalEmployees}</div>
+              <div className="text-4xl font-bold text-indigo-600">{dashboardData.totalEmployees}</div>
             </div>
-            <div className="bg-gradient-to-r from-green-50 to-white p-6 rounded-lg shadow-md text-center">
-              <FaCheckCircle className="text-5xl text-green-600 mb-4" />
+            <div className="bg-teal-100 p-6 rounded-lg shadow-md text-center">
+              <FaCheckCircle className="text-5xl text-teal-600 mb-4" />
               <h3 className="text-xl font-semibold text-gray-700 mb-2">Present Employees</h3>
-              <div className="text-4xl font-bold text-green-600">{dashboardData.presentEmployees}</div>
+              <div className="text-4xl font-bold text-teal-600">{dashboardData.presentEmployees}</div>
             </div>
-            <div className="bg-gradient-to-r from-red-50 to-white p-6 rounded-lg shadow-md text-center">
-              <FaTimesCircle className="text-5xl text-red-600 mb-4" />
+            <div className="bg-rose-100 p-6 rounded-lg shadow-md text-center">
+              <FaTimesCircle className="text-5xl text-rose-600 mb-4" />
               <h3 className="text-xl font-semibold text-gray-700 mb-2">Absent Employees</h3>
-              <div className="text-4xl font-bold text-red-600">{dashboardData.absentEmployees}</div>
+              <div className="text-4xl font-bold text-rose-600">{dashboardData.absentEmployees}</div>
             </div>
           </div>
 
           {/* Percentages and Late Employees */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
-            <div className="bg-gradient-to-r from-green-50 to-white p-6 rounded-lg shadow-md text-center">
+            <div className="bg-cyan-100 p-6 rounded-lg shadow-md text-center">
               <h3 className="text-xl font-semibold text-gray-700 mb-2">Present Percentage</h3>
-              <div className="text-4xl font-bold text-green-600">{dashboardData.presentPercentage}%</div>
+              <div className="text-4xl font-bold text-cyan-600">{dashboardData.presentPercentage}%</div>
             </div>
-            <div className="bg-gradient-to-r from-red-50 to-white p-6 rounded-lg shadow-md text-center">
+            <div className="bg-orange-100 p-6 rounded-lg shadow-md text-center">
               <h3 className="text-xl font-semibold text-gray-700 mb-2">Absent Percentage</h3>
-              <div className="text-4xl font-bold text-red-600">{dashboardData.absentPercentage}%</div>
+              <div className="text-4xl font-bold text-orange-600">{dashboardData.absentPercentage}%</div>
             </div>
-            <div className="bg-gradient-to-r from-yellow-50 to-white p-6 rounded-lg shadow-md text-center">
+            <div className="bg-purple-100 p-6 rounded-lg shadow-md text-center">
               <h3 className="text-xl font-semibold text-gray-700 mb-2">Late Employees</h3>
-              <div className="text-4xl font-bold text-yellow-600">{dashboardData.lateEmployees}</div>
+              <div className="text-4xl font-bold text-purple-600">{dashboardData.lateEmployees}</div>
               <div className="text-lg text-gray-500">{dashboardData.latePercentage}%</div>
             </div>
           </div>
