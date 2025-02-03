@@ -1,8 +1,7 @@
 import React from 'react';
 import DataTable from "../DataTable";
 import emp3 from "../../assets/emp3.png";  // Default image for the employee (if needed)
-
-import EmployeeList from '../data/EmployeeList.json';  // Import the JSON data
+import EmployeeListData from '../data/EmployeeList.json';  // Import the JSON data
 
 const Employeelist = () => {
   const columns = [
@@ -15,10 +14,11 @@ const Employeelist = () => {
     { key: "zone", label: "Zone" },
     { key: "category", label: "Category" },
     { key: "access", label: "Access" },
+    { key: "actions", label: "Actions", type: "actions" } // Added column for actions (Edit/Delete)
   ];
 
   // Map JSON data to match column keys
-  const data = EmployeeList.map((emp) => ({
+  const data = EmployeeListData.map((emp) => ({
     sno: emp.Sno,
     name: emp.Name,
     employeeId: emp["Employee Id"],

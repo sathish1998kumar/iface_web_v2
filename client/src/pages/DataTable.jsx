@@ -1,8 +1,9 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import * as XLSX from "xlsx";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { FaEdit, FaTrash } from "react-icons/fa"; // Import React Icons (Font Awesome icons)
 
 const DataTable = ({ data, columns, title }) => {
   const [visibleColumns, setVisibleColumns] = useState(
@@ -15,6 +16,11 @@ const DataTable = ({ data, columns, title }) => {
   const [filters, setFilters] = useState({});
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  // Modal States
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [currentItem, setCurrentItem] = useState(null);
+
   // Handle Sorting
   const handleSort = (key) => {
     let direction = "ascending";
@@ -23,11 +29,13 @@ const DataTable = ({ data, columns, title }) => {
     }
     setSortConfig({ key, direction });
 
-    data.sort((a, b) => {
+    const sortedData = [...data];
+    sortedData.sort((a, b) => {
       if (a[key] < b[key]) return direction === "ascending" ? -1 : 1;
       if (a[key] > b[key]) return direction === "ascending" ? 1 : -1;
       return 0;
     });
+    return sortedData;
   };
 
   // Filter Data
@@ -103,13 +111,27 @@ const DataTable = ({ data, columns, title }) => {
     newWindow.print();
   };
 
+  const handleDelete = () => {
+    if (currentItem) {
+      // Handle the delete action, e.g., remove the item from the data array
+      const updatedData = data.filter((item) => item.sno !== currentItem.sno);
+      // Update the state with the new data
+      console.log("Item Deleted:", currentItem);
+      setShowDeleteModal(false);
+    }
+  };
+
+  const handleEdit = (item) => {
+    setCurrentItem(item);
+    setShowEditModal(true);
+  };
+
   return (
     <div className="p-6 bg-gray-100 min-h-screen">
       <h1 className="text-2xl font-bold mb-4">{title}</h1>
 
       {/* Controls (Search, Column Visibility, Export) */}
       <div className="flex flex-wrap gap-2 mb-4 items-center justify-between">
-        {/* Search Input */}
         <input
           type="text"
           placeholder="Search..."
@@ -118,7 +140,6 @@ const DataTable = ({ data, columns, title }) => {
           className="border px-4 py-2 rounded w-64"
         />
 
-        {/* Buttons (Columns, PDF, Excel, CSV, Copy, Print) */}
         <div className="flex flex-wrap gap-2">
           {/* Column Visibility */}
           <div className="relative">
@@ -155,21 +176,20 @@ const DataTable = ({ data, columns, title }) => {
       {/* Table */}
       <div className="overflow-x-auto">
         <table id="report-table" className="table-auto border-collapse border border-gray-300 w-full bg-white shadow-md">
-        <thead>
-  <tr className="text-gray-800 bg-gray-100">
-    {columns.map((col) =>
-      visibleColumns[col.key] && (
-        <th
-          key={col.key}
-          className="border border-gray-300 px-4 py-2 cursor-pointer"
-          onClick={() => handleSort(col.key)}
-        >
-          {col.label}
-        </th>
-      )
-    )}
-  </tr>
-</thead>
+          <thead>
+            <tr className="text-gray-800 bg-gray-100">
+              {columns.map((col) => (
+                visibleColumns[col.key] && (
+                  <th
+                    key={col.key}
+                    className="border border-gray-300 px-4 py-2 cursor-pointer"
+                  >
+                    {col.label}
+                  </th>
+                )
+              ))}
+            </tr>
+          </thead>
 
           <tbody>
             {currentRows.map((row, index) => (
@@ -177,7 +197,22 @@ const DataTable = ({ data, columns, title }) => {
                 {columns.map((col) => visibleColumns[col.key] && (
                   <td key={col.key} className="border border-gray-300 px-4 py-2">
                     {col.type === "image" ? (
-                      <img src={row[col.key]} alt="Employee" className="w-16 h-16 rounded-full" />
+                      <img src={row[col.key]} alt="Employee" className="w-12 h-12 rounded-full mx-auto" />
+                    ) : col.type === "actions" ? (
+                      <div className="flex justify-center gap-2">
+                        <button
+                          onClick={() => handleEdit(row)}
+                          className="text-blue-600 hover:text-blue-800"
+                        >
+                          <FaEdit className="h-5 w-5" />
+                        </button>
+                        <button
+                          onClick={() => { setCurrentItem(row); setShowDeleteModal(true); }}
+                          className="text-red-600 hover:text-red-800"
+                        >
+                          <FaTrash className="h-5 w-5" />
+                        </button>
+                      </div>
                     ) : (
                       row[col.key]
                     )}
@@ -191,10 +226,67 @@ const DataTable = ({ data, columns, title }) => {
 
       {/* Pagination */}
       <div className="flex justify-between items-center mt-4">
-        <button onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))} className="bg-gray-500 text-white px-4 py-2 rounded">Previous</button>
-        <span>Page {currentPage} of {Math.ceil(searchedData.length / rowsPerPage)}</span>
-        <button onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(searchedData.length / rowsPerPage)))} className="bg-gray-500 text-white px-4 py-2 rounded">Next</button>
+        <span>
+          Showing {indexOfFirstRow + 1} to {indexOfLastRow} of {searchedData.length} entries
+        </span>
+        <div>
+          <button
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            className="bg-gray-500 text-white px-3 py-1 rounded"
+          >
+            Previous
+          </button>
+          <button
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(searchedData.length / rowsPerPage)))}
+            className="bg-gray-500 text-white px-3 py-1 rounded"
+          >
+            Next
+          </button>
+        </div>
       </div>
+
+      {/* Edit Modal */}
+      {showEditModal && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded shadow-lg w-1/3">
+            <h2 className="text-xl mb-4">Edit User</h2>
+            {/* Form Fields for Editing */}
+            <form>
+              {/* Form for editing user, like username, email, etc. */}
+            </form>
+            <button
+              onClick={() => setShowEditModal(false)}
+              className="bg-red-500 text-white px-4 py-2 rounded"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteModal && (
+        <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+          <div className="bg-white p-6 rounded shadow-lg w-1/3">
+            <h2 className="text-xl mb-4">Confirm Delete</h2>
+            <p>Are you sure you want to delete this item?</p>
+            <div className="flex justify-between mt-4">
+              <button
+                onClick={handleDelete}
+                className="bg-red-500 text-white px-4 py-2 rounded"
+              >
+                Yes, Delete
+              </button>
+              <button
+                onClick={() => setShowDeleteModal(false)}
+                className="bg-gray-500 text-white px-4 py-2 rounded"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
