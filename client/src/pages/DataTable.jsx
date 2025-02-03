@@ -13,7 +13,7 @@ const DataTable = ({ data, columns, title }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({});
-  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   // Handle Sorting
   const handleSort = (key) => {
@@ -108,7 +108,8 @@ const DataTable = ({ data, columns, title }) => {
       <h1 className="text-2xl font-bold mb-4">{title}</h1>
 
       {/* Controls (Search, Column Visibility, Export) */}
-      <div className="flex flex-wrap gap-2 mb-4 items-center">
+      <div className="flex flex-wrap gap-2 mb-4 items-center justify-between">
+        {/* Search Input */}
         <input
           type="text"
           placeholder="Search..."
@@ -117,49 +118,59 @@ const DataTable = ({ data, columns, title }) => {
           className="border px-4 py-2 rounded w-64"
         />
 
-        {/* Column Visibility */}
-        <div className="relative">
-          <button onClick={() => setShowDropdown(!showDropdown)} className="bg-blue-500 text-white px-4 py-2 rounded">
-            Columns
-          </button>
-          {showDropdown && (
-            <div className="absolute top-10 left-0 bg-white border rounded shadow-lg z-10 w-40 p-2">
-              {columns.map((col) => (
-                <label key={col.key} className="flex items-center gap-2 px-3 py-2">
-                  <input
-                    type="checkbox"
-                    checked={visibleColumns[col.key]}
-                    onChange={() => setVisibleColumns((prev) => ({ ...prev, [col.key]: !prev[col.key] }))} 
-                  />
-                  {col.label}
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
+        {/* Buttons (Columns, PDF, Excel, CSV, Copy, Print) */}
+        <div className="flex flex-wrap gap-2">
+          {/* Column Visibility */}
+          <div className="relative">
+            <button onClick={() => setShowDropdown(!showDropdown)} className="bg-blue-500 text-white px-4 py-2 rounded">
+              Columns
+            </button>
+            {showDropdown && (
+              <div className="absolute top-10 left-0 bg-white border rounded shadow-lg z-10 w-40 p-2">
+                {columns.map((col) => (
+                  <label key={col.key} className="flex items-center gap-2 px-3 py-2">
+                    <input
+                      type="checkbox"
+                      checked={visibleColumns[col.key]}
+                      onChange={() => setVisibleColumns((prev) => ({ ...prev, [col.key]: !prev[col.key] }))} 
+                    />
+                    {col.label}
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
 
-        {/* Export Buttons */}
-        <button onClick={exportToPDF} className="bg-red-500 text-white px-4 py-2 rounded">PDF</button>
-        <button onClick={exportToExcel} className="bg-green-500 text-white px-4 py-2 rounded">Excel</button>
-        <button onClick={exportToCSV} className="bg-yellow-500 text-white px-4 py-2 rounded">CSV</button>
-        <CopyToClipboard text={JSON.stringify(data)} onCopy={copyToClipboard}>
-          <button className="bg-blue-500 text-white px-4 py-2 rounded">Copy</button>
-        </CopyToClipboard>
-        <button onClick={printTable} className="bg-gray-500 text-white px-4 py-2 rounded">Print</button>
+          {/* Export Buttons */}
+          <button onClick={exportToPDF} className="bg-red-500 text-white px-4 py-2 rounded">PDF</button>
+          <button onClick={exportToExcel} className="bg-green-500 text-white px-4 py-2 rounded">Excel</button>
+          <button onClick={exportToCSV} className="bg-yellow-500 text-white px-4 py-2 rounded">CSV</button>
+          <CopyToClipboard text={JSON.stringify(data)} onCopy={copyToClipboard}>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded">Copy</button>
+          </CopyToClipboard>
+          <button onClick={printTable} className="bg-gray-500 text-white px-4 py-2 rounded">Print</button>
+        </div>
       </div>
 
       {/* Table */}
       <div className="overflow-x-auto">
         <table id="report-table" className="table-auto border-collapse border border-gray-300 w-full bg-white shadow-md">
-          <thead>
-            <tr className="text-black">
-              {columns.map((col) => visibleColumns[col.key] && (
-                <th key={col.key} className="border border-gray-300 px-4 py-2 cursor-pointer" onClick={() => handleSort(col.key)}>
-                  {col.label}
-                </th>
-              ))}
-            </tr>
-          </thead>
+        <thead>
+  <tr className="text-gray-800 bg-gray-100">
+    {columns.map((col) =>
+      visibleColumns[col.key] && (
+        <th
+          key={col.key}
+          className="border border-gray-300 px-4 py-2 cursor-pointer"
+          onClick={() => handleSort(col.key)}
+        >
+          {col.label}
+        </th>
+      )
+    )}
+  </tr>
+</thead>
+
           <tbody>
             {currentRows.map((row, index) => (
               <tr key={index} className="text-center bg-white hover:bg-gray-100">

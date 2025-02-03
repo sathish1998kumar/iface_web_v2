@@ -1,5 +1,5 @@
 import DataTable from "../DataTable";
-import emp1 from "../emp1.png";  // Import image
+import emp1 from "../../assets/emp2.png"// Import image
 
 const InchargeMonthlyReport = () => {
   const columns = [

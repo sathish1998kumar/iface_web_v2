@@ -2,7 +2,7 @@ import { useState } from "react";
 import * as XLSX from "xlsx";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import emp1 from '../emp1.png';  // Import your image
+import emp1 from '../../assets/emp1.png';  // Import your image
 
 const DailyReport = () => {
   const employees = [
