@@ -1,20 +1,27 @@
 import axios from "axios";
 
-const API_URL = process.env.REACT_APP_API_URL + "/users"; // Ensure .env is configured properly
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
-export const getUsers = async () => {
+export const fetchUsers = async () => {
   try {
-    const response = await axios.get(API_URL);
-    console.log("API Response:", response.data); // Debugging log
-
-    if (Array.isArray(response.data)) {
-      return response.data; // Return data if it's an array
-    } else {
-      console.warn("Unexpected API response format:", response.data);
-      return []; // Return empty array to prevent errors
+    if (!API_BASE_URL) {
+      throw new Error("API Base URL is not defined");
     }
+
+    const apiUrl = `${API_BASE_URL}/users`;
+    console.log("Fetching data from:", apiUrl);
+
+    const response = await axios.get(apiUrl);
+
+    if (response.status !== 200) {
+      throw new Error(`Failed to fetch data: ${response.statusText}`);
+    }
+
+    console.log("API Response:", response.data);
+    
+    return Array.isArray(response.data) ? response.data : [];
   } catch (error) {
-    console.error("Error fetching users:", error);
-    return []; // Return empty array on error
+    console.error("Error fetching users:", error.response?.data || error.message);
+    return [];
   }
 };

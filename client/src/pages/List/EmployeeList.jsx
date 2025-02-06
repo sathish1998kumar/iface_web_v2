@@ -1,7 +1,7 @@
-import React from 'react';
+import React from "react";
 import DataTable from "../DataTable";
-import emp3 from "../../assets/emp3.png";  // Default image for the employee (if needed)
-import EmployeeListData from '../data/EmployeeList.json';  // Import the JSON data
+import emp3 from "../../assets/emp3.png"; // Default image for the employee (if needed)
+import EmployeeListData from "../data/EmployeeList.json"; // Import the JSON data
 
 const Employeelist = () => {
   const columns = [
@@ -14,7 +14,7 @@ const Employeelist = () => {
     { key: "zone", label: "Zone" },
     { key: "category", label: "Category" },
     { key: "access", label: "Access" },
-    { key: "actions", label: "Actions", type: "actions" } // Added column for actions (Edit/Delete)
+    { key: "actions", label: "Actions", type: "actions" }, // Added column for actions (Edit/Delete)
   ];
 
   // Map JSON data to match column keys
@@ -22,7 +22,7 @@ const Employeelist = () => {
     sno: emp.Sno,
     name: emp.Name,
     employeeId: emp["Employee Id"],
-    photo: emp.Photo === "Employee Image" ? emp3 : emp.Photo,  // Assuming a default image if "Employee Image" is the placeholder
+    photo: emp.Photo === "Employee Image" ? emp3 : emp.Photo, // Assuming a default image if "Employee Image" is the placeholder
     mobile: emp.Mobile,
     designation: emp.Designation,
     zone: emp.Zone,

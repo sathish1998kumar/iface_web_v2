@@ -10,7 +10,7 @@ const Sidebar = () => {
   };
   const handleLogout = () => {
     // Clear session storage or authentication tokens
-    localStorage.removeItem("authToken"); // Example: Clear token from local storage
+    localStorage.removeItem("isLoggedIn"); // Example: Clear token from local storage
     sessionStorage.clear(); // Clear session storage if used
 
     // Redirect to login page

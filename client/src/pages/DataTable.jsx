@@ -10,7 +10,10 @@ const DataTable = ({ data, columns, title }) => {
     columns.reduce((acc, col) => ({ ...acc, [col.key]: true }), {})
   );
   const [showDropdown, setShowDropdown] = useState(false);
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: "ascending" });
+  const [sortConfig, setSortConfig] = useState({
+    key: null,
+    direction: "ascending",
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [filters, setFilters] = useState({});
@@ -20,6 +23,8 @@ const DataTable = ({ data, columns, title }) => {
   const [showEditModal, setShowEditModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [currentItem, setCurrentItem] = useState(null);
+
+  const [formData, setFormData] = useState({});
 
   // Handle Sorting
   const handleSort = (key) => {
@@ -80,7 +85,7 @@ const DataTable = ({ data, columns, title }) => {
   const exportToCSV = () => {
     const csvContent = [
       columns.map((col) => col.label).join(","),
-      ...data.map((row) => columns.map((col) => row[col.key]).join(","))
+      ...data.map((row) => columns.map((col) => row[col.key]).join(",")),
     ].join("\n");
 
     const blob = new Blob([csvContent], { type: "text/csv" });
@@ -93,9 +98,9 @@ const DataTable = ({ data, columns, title }) => {
   };
 
   const copyToClipboard = () => {
-    const text = data.map((row) =>
-      columns.map((col) => row[col.key]).join("\t")
-    ).join("\n");
+    const text = data
+      .map((row) => columns.map((col) => row[col.key]).join("\t"))
+      .join("\n");
 
     navigator.clipboard.writeText(text);
     alert("Copied to Clipboard!");
@@ -104,7 +109,9 @@ const DataTable = ({ data, columns, title }) => {
   const printTable = () => {
     const printContent = document.getElementById("report-table").outerHTML;
     const newWindow = window.open("", "_blank");
-    newWindow.document.write("<html><head><title>Print Report</title></head><body>");
+    newWindow.document.write(
+      "<html><head><title>Print Report</title></head><body>"
+    );
     newWindow.document.write(printContent);
     newWindow.document.write("</body></html>");
     newWindow.document.close();
@@ -123,7 +130,20 @@ const DataTable = ({ data, columns, title }) => {
 
   const handleEdit = (item) => {
     setCurrentItem(item);
+    setFormData(item);
     setShowEditModal(true);
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    // Handle the updated data after editing
+    console.log("Updated Item:", formData);
+    setShowEditModal(false);
   };
 
   return (
@@ -143,17 +163,28 @@ const DataTable = ({ data, columns, title }) => {
         <div className="flex flex-wrap gap-2">
           {/* Column Visibility */}
           <div className="relative">
-            <button onClick={() => setShowDropdown(!showDropdown)} className="bg-blue-500 text-white px-4 py-2 rounded">
+            <button
+              onClick={() => setShowDropdown(!showDropdown)}
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
               Columns
             </button>
             {showDropdown && (
               <div className="absolute top-10 left-0 bg-white border rounded shadow-lg z-10 w-40 p-2">
                 {columns.map((col) => (
-                  <label key={col.key} className="flex items-center gap-2 px-3 py-2">
+                  <label
+                    key={col.key}
+                    className="flex items-center gap-2 px-3 py-2"
+                  >
                     <input
                       type="checkbox"
                       checked={visibleColumns[col.key]}
-                      onChange={() => setVisibleColumns((prev) => ({ ...prev, [col.key]: !prev[col.key] }))} 
+                      onChange={() =>
+                        setVisibleColumns((prev) => ({
+                          ...prev,
+                          [col.key]: !prev[col.key],
+                        }))
+                      }
                     />
                     {col.label}
                   </label>
@@ -163,61 +194,103 @@ const DataTable = ({ data, columns, title }) => {
           </div>
 
           {/* Export Buttons */}
-          <button onClick={exportToPDF} className="bg-red-500 text-white px-4 py-2 rounded">PDF</button>
-          <button onClick={exportToExcel} className="bg-green-500 text-white px-4 py-2 rounded">Excel</button>
-          <button onClick={exportToCSV} className="bg-yellow-500 text-white px-4 py-2 rounded">CSV</button>
+          <button
+            onClick={exportToPDF}
+            className="bg-red-500 text-white px-4 py-2 rounded"
+          >
+            PDF
+          </button>
+          <button
+            onClick={exportToExcel}
+            className="bg-green-500 text-white px-4 py-2 rounded"
+          >
+            Excel
+          </button>
+          <button
+            onClick={exportToCSV}
+            className="bg-yellow-500 text-white px-4 py-2 rounded"
+          >
+            CSV
+          </button>
           <CopyToClipboard text={JSON.stringify(data)} onCopy={copyToClipboard}>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">Copy</button>
+            <button className="bg-blue-500 text-white px-4 py-2 rounded">
+              Copy
+            </button>
           </CopyToClipboard>
-          <button onClick={printTable} className="bg-gray-500 text-white px-4 py-2 rounded">Print</button>
+          <button
+            onClick={printTable}
+            className="bg-gray-500 text-white px-4 py-2 rounded"
+          >
+            Print
+          </button>
         </div>
       </div>
 
       {/* Table */}
       <div className="overflow-x-auto">
-        <table id="report-table" className="table-auto border-collapse border border-gray-300 w-full bg-white shadow-md">
+        <table
+          id="report-table"
+          className="table-auto border-collapse border border-gray-300 w-full bg-white shadow-md"
+        >
           <thead>
             <tr className="text-gray-800 bg-gray-100">
-              {columns.map((col) => (
-                visibleColumns[col.key] && (
-                  <th
-                    key={col.key}
-                    className="border border-gray-300 px-4 py-2 cursor-pointer"
-                  >
-                    {col.label}
-                  </th>
-                )
-              ))}
+              {columns.map(
+                (col) =>
+                  visibleColumns[col.key] && (
+                    <th
+                      key={col.key}
+                      className="border border-gray-300 px-4 py-2 cursor-pointer"
+                    >
+                      {col.label}
+                    </th>
+                  )
+              )}
             </tr>
           </thead>
 
           <tbody>
             {currentRows.map((row, index) => (
-              <tr key={index} className="text-center bg-white hover:bg-gray-100">
-                {columns.map((col) => visibleColumns[col.key] && (
-                  <td key={col.key} className="border border-gray-300 px-4 py-2">
-                    {col.type === "image" ? (
-                      <img src={row[col.key]} alt="Employee" className="w-12 h-12 rounded-full mx-auto" />
-                    ) : col.type === "actions" ? (
-                      <div className="flex justify-center gap-2">
-                        <button
-                          onClick={() => handleEdit(row)}
-                          className="text-blue-600 hover:text-blue-800"
-                        >
-                          <FaEdit className="h-5 w-5" />
-                        </button>
-                        <button
-                          onClick={() => { setCurrentItem(row); setShowDeleteModal(true); }}
-                          className="text-red-600 hover:text-red-800"
-                        >
-                          <FaTrash className="h-5 w-5" />
-                        </button>
-                      </div>
-                    ) : (
-                      row[col.key]
-                    )}
-                  </td>
-                ))}
+              <tr
+                key={index}
+                className="text-center bg-white hover:bg-gray-100"
+              >
+                {columns.map(
+                  (col) =>
+                    visibleColumns[col.key] && (
+                      <td
+                        key={col.key}
+                        className="border border-gray-300 px-4 py-2"
+                      >
+                        {col.type === "image" ? (
+                          <img
+                            src={row[col.key]}
+                            alt="Employee"
+                            className="w-12 h-12 rounded-full mx-auto"
+                          />
+                        ) : col.type === "actions" ? (
+                          <div className="flex justify-center gap-2">
+                            <button
+                              onClick={() => handleEdit(row)}
+                              className="text-blue-600 hover:text-blue-800"
+                            >
+                              <FaEdit className="h-5 w-5" />
+                            </button>
+                            <button
+                              onClick={() => {
+                                setCurrentItem(row);
+                                setShowDeleteModal(true);
+                              }}
+                              className="text-red-600 hover:text-red-800"
+                            >
+                              <FaTrash className="h-5 w-5" />
+                            </button>
+                          </div>
+                        ) : (
+                          row[col.key]
+                        )}
+                      </td>
+                    )
+                )}
               </tr>
             ))}
           </tbody>
@@ -227,7 +300,8 @@ const DataTable = ({ data, columns, title }) => {
       {/* Pagination */}
       <div className="flex justify-between items-center mt-4">
         <span>
-          Showing {indexOfFirstRow + 1} to {indexOfLastRow} of {searchedData.length} entries
+          Showing {indexOfFirstRow + 1} to {indexOfLastRow} of{" "}
+          {searchedData.length} entries
         </span>
         <div>
           <button
@@ -237,7 +311,11 @@ const DataTable = ({ data, columns, title }) => {
             Previous
           </button>
           <button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, Math.ceil(searchedData.length / rowsPerPage)))}
+            onClick={() =>
+              setCurrentPage((prev) =>
+                Math.min(prev + 1, Math.ceil(searchedData.length / rowsPerPage))
+              )
+            }
             className="bg-gray-500 text-white px-3 py-1 rounded"
           >
             Next
@@ -245,21 +323,44 @@ const DataTable = ({ data, columns, title }) => {
         </div>
       </div>
 
-      {/* Edit Modal */}
       {showEditModal && (
         <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-          <div className="bg-white p-6 rounded shadow-lg w-1/3">
-            <h2 className="text-xl mb-4">Edit User</h2>
-            {/* Form Fields for Editing */}
-            <form>
-              {/* Form for editing user, like username, email, etc. */}
-            </form>
+          <div className="bg-white p-6 rounded shadow-lg w-2/3 max-w-4xl h-auto max-h-[500px] overflow-y-auto relative">
+            {" "}
+            {/* Added relative to position close button */}
+            {/* Close Button */}
             <button
               onClick={() => setShowEditModal(false)}
-              className="bg-red-500 text-white px-4 py-2 rounded"
+              className="absolute top-2 right-2 bg-red-500 text-white px-4 py-2 rounded"
             >
               Close
             </button>
+            <h2 className="text-xl mb-4">Edit User</h2>
+            {/* Form Fields for Editing */}
+            <form onSubmit={handleFormSubmit}>
+              {columns
+                .filter((col) => col.key !== "actions")
+                .map((col) => (
+                  <div key={col.key} className="mb-4">
+                    <label className="block text-gray-700">{col.label}</label>
+                    <input
+                      type="text"
+                      name={col.key}
+                      value={formData[col.key] || ""}
+                      onChange={handleFormChange}
+                      className="border px-4 py-2 rounded w-full"
+                    />
+                  </div>
+                ))}
+              <div className="flex justify-between">
+                <button
+                  type="submit"
+                  className="bg-blue-500 text-white px-4 py-2 rounded"
+                >
+                  Save
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       )}
