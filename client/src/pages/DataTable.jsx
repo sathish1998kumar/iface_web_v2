@@ -172,8 +172,7 @@ const DataTable = ({ data, columns, title }) => {
             </tbody>
           </table>
         </div>
-      </div>
-      
+      </div>  
       {/* Pagination */}
       <div className="flex justify-between items-center mt-4">
         <span>
