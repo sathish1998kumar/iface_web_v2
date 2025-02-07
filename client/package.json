@@ -24,6 +24,7 @@
     "clsx": "^2.1.1",
     "cra-template": "^1.2.0",
     "datatables.net-dt": "^2.2.1",
+    "date-fns": "^4.1.0",
     "file-saver": "^2.0.5",
     "formik": "^2.4.6",
     "html2canvas": "^1.4.1",

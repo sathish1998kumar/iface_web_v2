@@ -9,7 +9,7 @@ export const fetchUsers = async () => {
     }
 
     const apiUrl = `${API_BASE_URL}/users`;
-    console.log("Fetching data from:", apiUrl);
+    // console.log("Fetching data from:", apiUrl);
 
     const response = await axios.get(apiUrl);
 
@@ -17,7 +17,7 @@ export const fetchUsers = async () => {
       throw new Error(`Failed to fetch data: ${response.statusText}`);
     }
 
-    console.log("API Response:", response.data);
+    // console.log("API Response:", response.data);
     
     return Array.isArray(response.data) ? response.data : [];
   } catch (error) {

@@ -1,0 +1,55 @@
+[
+    {
+      "id": 1,
+      "name": "John Doe",
+      "photo": "../../assets/emp1.png",
+      "designation": "Software Engineer",
+      "attendance": "Present",
+      "workHours": "8 Hours",
+      "checkIn": "9:00 AM",
+      "checkOut": "5:00 PM",
+      "zone": "Zone 1",
+      "yard": "Yard A",
+      "date": "2025-01-15"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "photo": "../../assets/emp1.png",
+      "designation": "UI/UX Designer",
+      "attendance": "Present",
+      "workHours": "7.5 Hours",
+      "checkIn": "9:30 AM",
+      "checkOut": "5:00 PM",
+      "zone": "Zone 2",
+      "yard": "Yard B",
+      "date": "2025-01-15"
+    },
+    {
+      "id": 3,
+      "name": "Michael Johnson",
+      "photo": "../../assets/emp1.png",
+      "designation": "Project Manager",
+      "attendance": "Absent",
+      "workHours": "-",
+      "checkIn": "-",
+      "checkOut": "-",
+      "zone": "Zone 3",
+      "yard": "Yard C",
+      "date": "2025-01-16"
+    },
+    {
+      "id": 4,
+      "name": "Emily Davis",
+      "photo": "../../assets/emp1.png",
+      "designation": "Quality Analyst",
+      "attendance": "Present",
+      "workHours": "8 Hours",
+      "checkIn": "9:15 AM",
+      "checkOut": "5:15 PM",
+      "zone": "Zone 4",
+      "yard": "Yard D",
+      "date": "2025-01-16"
+    }
+  ]
+  
