@@ -4,7 +4,7 @@ import emp3 from "../../assets/emp2.png";
 import UserListData from "../data/UserList.json";
 import EditEmployeeModal from "./EditEmployeeModal";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
-import DataTable from "../DataTable"; 
+import DataTable from "../DataTable";
 
 const UserList = () => {
   const [users, setUsers] = useState(UserListData);
@@ -20,7 +20,7 @@ const UserList = () => {
   const handleUpdateUser = (updatedUser) => {
     setUsers((prevUsers) =>
       prevUsers.map((usr) =>
-        usr.Sno === updatedUser.Sno ? updatedUser : usr
+        usr.Sno === updatedUser.Sno ? { ...usr, ...updatedUser } : usr
       )
     );
     setIsEditModalOpen(false);
@@ -32,16 +32,15 @@ const UserList = () => {
   };
 
   const confirmDelete = () => {
-    setUsers((prevUsers) =>
-      prevUsers.filter((usr) => usr.Sno !== selectedUser.Sno)
-    );
+    setUsers((prevUsers) => prevUsers.filter((usr) => usr.Sno !== selectedUser.Sno));
+    setSelectedUser(null);
     setIsDeleteModalOpen(false);
   };
 
   const columns = [
     { key: "sno", label: "ID" },
     { key: "name", label: "Name" },
-    { key: "employeeId", label: "Employee Id" },
+    { key: "employeeId", label: "Employee ID" },
     { key: "photo", label: "Photo", type: "image" },
     { key: "mobile", label: "Mobile" },
     { key: "designation", label: "Designation" },
@@ -89,16 +88,17 @@ const UserList = () => {
     <div className="p-4 bg-white shadow rounded-lg">
       <DataTable title="User List" columns={columns} data={data} />
 
-      {isEditModalOpen && (
+      {isEditModalOpen && selectedUser && (
         <EditEmployeeModal
-          user={selectedUser}
-          onUpdate={handleUpdateUser} 
+          employee={selectedUser}
+          onUpdate={handleUpdateUser}
           onClose={() => setIsEditModalOpen(false)}
         />
       )}
-      {isDeleteModalOpen && (
+
+      {isDeleteModalOpen && selectedUser && (
         <DeleteConfirmationModal
-          user={selectedUser}
+          employee={selectedUser}
           onConfirm={confirmDelete}
           onClose={() => setIsDeleteModalOpen(false)}
         />

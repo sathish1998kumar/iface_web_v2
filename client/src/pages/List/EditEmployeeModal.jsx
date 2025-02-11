@@ -9,7 +9,7 @@ const EditEmployeeModal = ({ employee, onUpdate, onClose }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onUpdate(formData); // Send the updated data to Employeelist.jsx
+    onUpdate(formData); 
   };
 
   return (
@@ -20,7 +20,7 @@ const EditEmployeeModal = ({ employee, onUpdate, onClose }) => {
           <input
             type="text"
             name="Name"
-            value={formData.Name}
+            value={formData.Name || ""}
             onChange={handleChange}
             placeholder="Name"
             className="border p-2 rounded"
@@ -28,7 +28,7 @@ const EditEmployeeModal = ({ employee, onUpdate, onClose }) => {
           <input
             type="text"
             name="Employee Id"
-            value={formData["Employee Id"]}
+            value={formData["Employee Id"] || ""}
             onChange={handleChange}
             placeholder="Employee ID"
             className="border p-2 rounded"
@@ -36,7 +36,7 @@ const EditEmployeeModal = ({ employee, onUpdate, onClose }) => {
           <input
             type="text"
             name="Mobile"
-            value={formData.Mobile}
+            value={formData.Mobile || ""}
             onChange={handleChange}
             placeholder="Mobile"
             className="border p-2 rounded"
@@ -44,7 +44,7 @@ const EditEmployeeModal = ({ employee, onUpdate, onClose }) => {
           <input
             type="text"
             name="Designation"
-            value={formData.Designation}
+            value={formData.Designation || ""}
             onChange={handleChange}
             placeholder="Designation"
             className="border p-2 rounded"
