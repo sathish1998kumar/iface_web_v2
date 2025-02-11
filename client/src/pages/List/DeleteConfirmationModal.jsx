@@ -2,10 +2,12 @@ import React from "react";
 
 const DeleteConfirmationModal = ({ employee, onConfirm, onClose }) => {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-30 flex items-center justify-center">
+    <div className="fixed inset-0 z-[50] bg-gray-900 bg-opacity-50 flex justify-center items-center px-4">
       <div className="bg-white p-6 rounded-lg shadow-lg w-80">
         <h2 className="text-lg font-semibold mb-4">Confirm Delete</h2>
-        <p>Are you sure you want to delete <strong>{employee.Name}</strong>?</p>
+        <p>
+          Are you sure you want to delete <strong>{employee.Name}</strong>?
+        </p>
         <div className="flex justify-end gap-2 mt-4">
           <button
             onClick={onClose}

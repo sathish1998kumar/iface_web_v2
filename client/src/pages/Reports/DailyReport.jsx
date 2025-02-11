@@ -11,7 +11,7 @@ const DailyReport = () => {
       <img
         src={employee.photo === "../../assets/emp1.png" ? emp1 : employee.photo}
         alt={employee.name}
-        className="w-10 h-10 rounded-full mx-auto"
+        className="w-12 h-12 rounded-full mx-auto"
       />
     ),
   }));
