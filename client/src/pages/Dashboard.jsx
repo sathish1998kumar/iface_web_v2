@@ -84,7 +84,7 @@ const Dashboard = () => {
       <div className="flex-1 min-w-[80%] overflow-y-auto">
         <Navbar />
         <div className="p-8">
-          <h1 className="text-4xl font-semibold text-gray-800 mb-6">Dashboard</h1>
+          <h3 className="text-4xl font-semibold text-gray-800 mb-6">Erode Corporation</h3>
 
            {/* Summary Cards */}
            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
