@@ -5,7 +5,7 @@ const NotFound = () => {
 
   // Navigate to Home
   const goToHome = () => {
-    navigate('/');
+    navigate('/CardCount');
   };
 
   return (

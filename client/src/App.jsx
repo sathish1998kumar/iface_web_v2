@@ -3,7 +3,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 // Pages
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
-import AttendanceDashboard from "./pages/AttendanceDashboard";
+import CardCount from "./pages/CardCount";
+import GoogleMap from "./pages/GoogleMap";
 import NotFound from "./pages/NotFound";
 // Reports Pages
 import Reports from "./pages/Reports/Reports";
@@ -30,7 +31,8 @@ const App = () => (
 
       {/* Protected Routes */}
       <Route path="/dashboard/*" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-      <Route path="/attendance-dashboard" element={<ProtectedRoute><AttendanceDashboard /></ProtectedRoute>} />
+      <Route path="/CardCount" element={<ProtectedRoute><CardCount /></ProtectedRoute>} />
+      <Route path="/GoogleMap" element={<ProtectedRoute><GoogleMap /></ProtectedRoute>} />
 
       {/* Reports Routes (Inside Layout) */}
       <Route path="/reports" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
