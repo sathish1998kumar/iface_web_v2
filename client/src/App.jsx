@@ -15,6 +15,7 @@ import InchargeMonthlyReport from "./pages/Reports/InchargeMonthlyReport";
 import DesignationReport from "./pages/Reports/DesignationReport";
 import MonthlyReport from "./pages/Reports/MonthlyReport";
 import ContinuouslyAbsentReport from "./pages/Reports/ContinuouslyAbsentReport";
+import PaymentPendingReport from "./pages/Reports/PaymentPendingReport";
 // List Pages
 import EmployeeList from "./pages/List/EmployeeList";
 import UserList from "./pages/List/UserList";
@@ -43,6 +44,7 @@ const App = () => (
       <Route path="/reports/designation" element={<ProtectedRoute><Layout><DesignationReport /></Layout></ProtectedRoute>} />
       <Route path="/reports/monthly" element={<ProtectedRoute><Layout><MonthlyReport /></Layout></ProtectedRoute>} />
       <Route path="/reports/continuous-absent" element={<ProtectedRoute><Layout><ContinuouslyAbsentReport /></Layout></ProtectedRoute>} />
+      <Route path="/reports/Payment-Pending-Report" element={<ProtectedRoute><Layout><PaymentPendingReport /></Layout></ProtectedRoute>} />
 
       {/* List Routes (Inside Layout) */}
       <Route path="/list/employees" element={<ProtectedRoute><Layout><EmployeeList /></Layout></ProtectedRoute>} />

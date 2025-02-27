@@ -181,6 +181,21 @@ const Sidebar = () => {
                     <span className="ml-4 text-sm">Continuously Absent Report</span>
                   </NavLink>
                 </li>
+                <li>
+                  <NavLink
+                    to="/reports/Payment-Pending-Report"
+                    className={({ isActive }) =>
+                      `flex items-center px-4 py-2 ${
+                        isActive
+                          ? "bg-indigo-600 text-white shadow-md"
+                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      } transition-all duration-300 rounded-md`
+                    }
+                  >
+                    <i className="fas fa-user-slash text-xs"></i>
+                    <span className="ml-4 text-sm">PaymentPendingReport</span>
+                  </NavLink>
+                </li>
               </ul>
             </li>
 
@@ -226,8 +241,10 @@ const Sidebar = () => {
                     <span className="ml-4 text-sm">User List</span>
                   </NavLink>
                 </li>
+                
               </ul>
             </li>
+
 
             {/* Logout */}
             <li>

@@ -32,7 +32,6 @@ const GoogleMap = () => {
     { name: "Ahmedabad Unit", lat: 23.0225, lng: 72.5714, present: 85, absent: 5, totalEmployees: 90, address: "Ahmedabad, Gujarat, India" },
     { name: "Jaipur Corporate", lat: 26.9124, lng: 75.7873, present: 75, absent: 10, totalEmployees: 85, address: "Jaipur, Rajasthan, India" },
     { name: "Lucknow Branch", lat: 26.8467, lng: 80.9462, present: 60, absent: 10, totalEmployees: 70, address: "Lucknow, Uttar Pradesh, India" },
-    // Worldwide Locations (50%)
     { name: "New York Office", lat: 40.7128, lng: -74.006, present: 160, absent: 20, totalEmployees: 180, address: "New York, USA" },
     { name: "London HQ", lat: 51.5074, lng: -0.1278, present: 140, absent: 15, totalEmployees: 155, address: "London, UK" },
     { name: "Berlin Tech Center", lat: 52.52, lng: 13.405, present: 110, absent: 10, totalEmployees: 120, address: "Berlin, Germany" },
@@ -69,6 +68,7 @@ const GoogleMap = () => {
       const customIcon = {
         url: "/facemaker.png",
         scaledSize: new window.google.maps.Size(40, 40),
+        labelOrigin: new window.google.maps.Point(20, 50),
       };
 
       locations.forEach((location) => {
@@ -77,39 +77,51 @@ const GoogleMap = () => {
           map: newMap,
           title: location.name,
           icon: customIcon,
+          label: {
+            text: `${Math.round((location.present / location.totalEmployees) * 100)}%`,
+            color: "#blue", // White text for contrast
+            fontSize: "20px", // Larger font size for readability
+            fontWeight: "bold",
+            background: "#green", // Background color (not supported in default label)
+            padding: "5px", // Padding (not supported in default label)
+          },
+                 
+        });
+
+        const content = `
+          <div style="padding: 10px; font-family: Arial, sans-serif; max-width: 250px;">
+            <h3 style="font-size: 18px; font-weight: bold; color: #1a73e8; margin-bottom: 10px;">
+              ${location.name}
+            </h3>
+            <p style="font-size: 14px; color: #555;"><strong>Address:</strong> ${location.address}</p>
+            <p style="font-size: 14px; color: #1E3A8A;"><strong>Present Employees:</strong> ${location.present}</p>
+            <p style="font-size: 14px; color: #DC2626;"><strong>Absent Employees:</strong> ${location.absent}</p>
+            <p style="font-size: 14px; color: #555;"><strong>Total Employees:</strong> ${location.totalEmployees}</p>
+            <p style="font-size: 14px; font-weight: bold; color: #0F766E;">
+              <strong>Attendance Rate:</strong> ${Math.round((location.present / location.totalEmployees) * 100)}%
+            </p>
+            ${
+              location.name === "Erode Corporation (India)"
+                ? `<button id="viewDetailsBtn-${location.name}" style="background-color: #1a73e8; color: white; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
+                  View Details
+                </button>`
+                : ""
+            }
+          </div>
+        `;
+
+        const infoWindow = new window.google.maps.InfoWindow({
+          content: content,
         });
 
         marker.addListener("click", () => {
-          const content = `
-            <div style="padding: 10px; font-family: Arial, sans-serif; max-width: 250px;">
-              <h3 style="font-size: 18px; font-weight: bold; color: #1a73e8; margin-bottom: 10px;">
-                ${location.name}
-              </h3>
-              <p style="font-size: 14px; color: #555;"><strong>Address:</strong> ${location.address}</p>
-              <p style="font-size: 14px; color: #1E3A8A;"><strong>Present Employees:</strong> ${location.present}</p>
-              <p style="font-size: 14px; color: #DC2626;"><strong>Absent Employees:</strong> ${location.absent}</p>
-              <p style="font-size: 14px; color: #555;"><strong>Total Employees:</strong> ${location.totalEmployees}</p>
-              <p style="font-size: 14px; font-weight: bold; color: #0F766E;">
-                <strong>Attendance Rate:</strong> ${Math.round((location.present / location.totalEmployees) * 100)}%
-              </p>
-              ${
-                location.name === "Erode Corporation (India)"
-                  ? `<button id="viewDetailsBtn" style="background-color: #1a73e8; color: white; padding: 8px 16px; border-radius: 4px; cursor: pointer;">
-                    View Details
-                  </button>`
-                  : ""
-              }
-            </div>
-          `;
-
-          newInfoWindow.setContent(content);
-          newInfoWindow.open(newMap, marker);
+          infoWindow.open(newMap, marker);
           newMap.setCenter({ lat: location.lat, lng: location.lng });
           newMap.setZoom(12);
 
           if (location.name === "Erode Corporation (India)") {
             setTimeout(() => {
-              document.getElementById("viewDetailsBtn")?.addEventListener("click", () => {
+              document.getElementById(`viewDetailsBtn-${location.name}`)?.addEventListener("click", () => {
                 navigate("/dashboard");
               });
             }, 0);
@@ -127,30 +139,27 @@ const GoogleMap = () => {
   const handleSearch = (event, value) => {
     setSearch(value);
   
-    // Clear search results and reset map zoom and center when search input is cleared
     if (!value) {
-      setFilteredLocations([]); // Clear filtered locations
+      setFilteredLocations([]);
   
       if (map && infoWindow) {
-        map.setCenter({ lat: 20, lng: 0 });  // Default center (zoom out to the whole world or any desired default center)
-        map.setZoom(3);  // Default zoom level
-        infoWindow.close();  // Close the info window if open
+        map.setCenter({ lat: 20, lng: 0 });
+        map.setZoom(3);
+        infoWindow.close();
       }
       return;
     }
   
-    // Filter locations based on search value
     const filteredResults = locations.filter((loc) =>
       loc.name.toLowerCase().includes(value.toLowerCase())
     );
     setFilteredLocations(filteredResults);
   
-    // Check if the search value matches any location and update the map
     const location = locations.find((loc) => loc.name.toLowerCase() === value.toLowerCase());
     if (location && map && infoWindow) {
       const markerPosition = { lat: location.lat, lng: location.lng };
       map.setCenter(markerPosition);
-      map.setZoom(12); // Zoom in on the selected location
+      map.setZoom(12);
   
       infoWindow.setContent(`
         <div style="padding: 10px; font-family: Arial, sans-serif; max-width: 250px;">
@@ -174,7 +183,6 @@ const GoogleMap = () => {
       infoWindow.setPosition(markerPosition);
       infoWindow.open(map);
   
-      // Navigate to details page if the specific location is selected
       if (location.name === "Erode Corporation (India)") {
         setTimeout(() => {
           document.getElementById("searchViewDetailsBtn").addEventListener("click", () => {
