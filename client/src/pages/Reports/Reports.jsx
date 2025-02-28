@@ -57,7 +57,7 @@ const Reports = () => {
           Continuously Absent Report
         </NavLink>
         <NavLink
-          to="/reports/Payment-Pending-Report"
+          to="/reports/payment-pending"
           className="block text-white bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md"
         >
          PaymentPendingReport

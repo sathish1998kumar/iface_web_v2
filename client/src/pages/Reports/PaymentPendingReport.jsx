@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 import { Button, Modal, TextField, MenuItem, Box, Typography } from "@mui/material";
-import { FaSort, FaEdit, FaTrash, FaSave, FaTimes, FaFilePdf } from "react-icons/fa";
+import { FaSort, FaEdit, FaTrash, FaSave, FaTimes, FaFilePdf, FaPlus } from "react-icons/fa";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 
 const PaymentDetailsReport = () => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [data, setData] = useState([
-    { id: 1, name: "John Doe", company: "ABC Corp", amount: "$100", status: "Pending", details: "Invoice #123", date: "2024-02-01" },
-    { id: 2, name: "Jane Smith", company: "XYZ Ltd", amount: "$200", status: "Process", details: "Invoice #124", date: "2024-02-02" },
-    { id: 3, name: "Michael Johnson", company: "LMN Inc", amount: "$150", status: "Paid", details: "Invoice #125", date: "2024-02-03" },
-    { id: 4, name: "Emily Davis", company: "DEF LLC", amount: "$250", status: "Pending", details: "Invoice #126", date: "2024-02-04" },
-    { id: 5, name: "William Brown", company: "GHI Enterprises", amount: "$300", status: "Process", details: "Invoice #127", date: "2024-02-05" }
+    { id: 1, name: "Arun Kumar", company: "Chennai ABC Pvt Ltd", amount: "₹10,000", status: "Pending", details: "Invoice from Chennai branch pending", date: "2024-02-01" },
+    { id: 2, name: "Chandran", company: "Coimbatore XYZ Ltd", amount: "₹15,000", status: "In Process", details: "Invoice from Coimbatore branch in process", date: "2024-02-02" },
+    { id: 3, name: "Prakash", company: "Madurai LMN Enterprises", amount: "₹12,000", status: "Paid", details: "Invoice from Madurai branch paid", date: "2024-02-03" },
+    { id: 4, name: "Vignesh", company: "Trichy DEF Solutions", amount: "₹20,000", status: "Pending", details: "Invoice from Trichy branch pending", date: "2024-02-04" },
+    { id: 5, name: "Saravanan", company: "Salem GHI Industries", amount: "₹18,000", status: "In Process", details: "Invoice from Salem branch in process", date: "2024-02-05" },
+    { id: 6, name: "Manikandan", company: "Thanjavur JKL Tech", amount: "₹25,000", status: "Pending", details: "Invoice from Thanjavur branch pending", date: "2024-02-06" },
+    { id: 7, name: "Deepa", company: "Villupuram MNO Ltd", amount: "₹22,000", status: "Paid", details: "Invoice from Villupuram branch paid", date: "2024-02-07" },
+    { id: 8, name: "Ganesh", company: "Dindigul PQR Traders", amount: "₹30,000", status: "In Process", details: "Invoice from Dindigul branch in process", date: "2024-02-08" },
+    { id: 9, name: "Krishna", company: "Cuddalore STU Enterprises", amount: "₹28,000", status: "Pending", details: "Invoice from Cuddalore branch pending", date: "2024-02-09" },
+    { id: 10, name: "Murali", company: "Tirunelveli VWX Pvt Ltd", amount: "₹35,000", status: "Paid", details: "Invoice from Tirunelveli branch paid", date: "2024-02-10" }
   ]);
 
   const [editEntry, setEditEntry] = useState(null);
   const [deleteEntry, setDeleteEntry] = useState(null);
+  const [addEntry, setAddEntry] = useState(false);
 
   // Sorting Function
   const sortedData = [...data].sort((a, b) => {
@@ -34,14 +40,24 @@ const PaymentDetailsReport = () => {
     doc.save("payment_report.pdf");
   };
 
+  // Add New Entry
+  const handleAddNew = () => {
+    const newEntry = { id: data.length + 1, name: "", company: "", amount: "", status: "Pending", details: "", date: "" };
+    setEditEntry(newEntry);
+    setAddEntry(true);
+  };
+
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
       <h2 className="text-xl font-semibold mb-4">Payment Details Report</h2>  
-      <div className="flex justify-end mb-6 pr-4">
-       <Button variant="contained" color="secondary" onClick={generatePDF} className="px-4 py-2">
-       <FaFilePdf className="mr-2" /> Download PDF
-       </Button>
-     </div>
+      <div className="flex justify-end mb-6 pr-4 space-x-2">
+        <Button variant="contained" color="primary" onClick={handleAddNew} className="px-4 py-2">
+          <FaPlus className="mr-2" /> Add New
+        </Button>
+        <Button variant="contained" color="secondary" onClick={generatePDF} className="px-4 py-2">
+          <FaFilePdf className="mr-2" /> Download PDF
+        </Button>
+      </div>
       <table className="w-full border rounded-lg">
         <thead>
           <tr className="bg-gray-200">
@@ -81,9 +97,9 @@ const PaymentDetailsReport = () => {
       </table>
 
       {/* Edit Modal */}
-      <Modal open={!!editEntry} onClose={() => setEditEntry(null)}>
+      <Modal open={!!editEntry} onClose={() => { setEditEntry(null); setAddEntry(false); }}>
         <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: 350, bgcolor: 'background.paper', boxShadow: 24, p: 3, borderRadius: 2 }}>
-          <Typography variant="h6" className="text-center mb-4">Edit Entry</Typography>
+          <Typography variant="h6" className="text-center mb-4">{addEntry ? "Add New Entry" : "Edit Entry"}</Typography>
           <TextField label="Name" value={editEntry?.name || ''} onChange={(e) => setEditEntry({ ...editEntry, name: e.target.value })} fullWidth margin="dense" />
           <TextField label="Company" value={editEntry?.company || ''} onChange={(e) => setEditEntry({ ...editEntry, company: e.target.value })} fullWidth margin="dense" />
           <TextField label="Amount" value={editEntry?.amount || ''} onChange={(e) => setEditEntry({ ...editEntry, amount: e.target.value })} fullWidth margin="dense" />
@@ -95,8 +111,8 @@ const PaymentDetailsReport = () => {
           <TextField label="Details" value={editEntry?.details || ''} onChange={(e) => setEditEntry({ ...editEntry, details: e.target.value })} fullWidth margin="dense" />
           <TextField label="Date" type="date" value={editEntry?.date || ''} onChange={(e) => setEditEntry({ ...editEntry, date: e.target.value })} fullWidth margin="dense" />
           <div className="flex justify-between mt-4">
-            <Button variant="contained" color="secondary" onClick={() => setEditEntry(null)}><FaTimes /> Cancel</Button>
-            <Button variant="contained" color="primary" onClick={() => { setData(data.map((item) => (item.id === editEntry.id ? editEntry : item))); setEditEntry(null); }}><FaSave /> Save</Button>
+            <Button variant="contained" color="secondary" onClick={() => { setEditEntry(null); setAddEntry(false); }}><FaTimes /> Cancel</Button>
+            <Button variant="contained" color="primary" onClick={() => { setData(addEntry ? [...data, editEntry] : data.map((item) => (item.id === editEntry.id ? editEntry : item))); setEditEntry(null); setAddEntry(false); }}><FaSave /> Save</Button>
           </div>
         </Box>
       </Modal>

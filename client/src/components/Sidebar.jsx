@@ -183,7 +183,7 @@ const Sidebar = () => {
                 </li>
                 <li>
                   <NavLink
-                    to="/reports/Payment-Pending-Report"
+                    to="/reports/payment-pending"
                     className={({ isActive }) =>
                       `flex items-center px-4 py-2 ${
                         isActive
