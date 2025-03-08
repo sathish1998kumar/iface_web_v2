@@ -41,8 +41,8 @@ const Sidebar = () => {
         </div>
 
         {/* Navigation Links */}
-        <nav className="flex-1 py-4">
-          <ul className="space-y-2">
+        <nav className="flex-1 py-">
+          <ul className="space-y">
             {/* Dashboard */}
             <li>
               <NavLink
@@ -244,8 +244,6 @@ const Sidebar = () => {
                 
               </ul>
             </li>
-
-
             {/* Logout */}
             <li>
               <button

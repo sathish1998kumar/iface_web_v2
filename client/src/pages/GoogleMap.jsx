@@ -47,7 +47,7 @@ const GoogleMap = () => {
   useEffect(() => {
     const loadGoogleMaps = () => {
       const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBAajo1CfPyRxHf18mzhJLLQwsuXbb6sPA&callback=initMap`;
+      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBAajo1CfPyRxHf18mzhJLLQwsuXbb6sPA &callback=initMap`;
       script.async = true;
       window.initMap = initMap;
       document.body.appendChild(script);
@@ -79,13 +79,12 @@ const GoogleMap = () => {
           icon: customIcon,
           label: {
             text: `${Math.round((location.present / location.totalEmployees) * 100)}%`,
-            color: "#blue", // White text for contrast
-            fontSize: "20px", // Larger font size for readability
+            color: "#blue",
+            fontSize: "20px",
             fontWeight: "bold",
-            background: "#green", // Background color (not supported in default label)
-            padding: "5px", // Padding (not supported in default label)
+            background: "#green",
+            padding: "5px",
           },
-                 
         });
 
         const content = `
@@ -205,47 +204,51 @@ const GoogleMap = () => {
   };
 
   return (
-    <div className="relative w-full h-screen">
-      <Paper className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 p-2 shadow-lg flex items-center w-[450px]">
-        <Autocomplete
-          freeSolo
-          options={locations.map((option) => option.name)}
-          onInputChange={handleSearch}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              variant="outlined"
-              size="small"
-              placeholder="Search locations..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              fullWidth
-              style={{ width: "100%", minWidth: "400px" }}
-              InputProps={{
-                ...params.InputProps,
-                style: {
-                  fontSize: "1rem",
-                  padding: "12px",
-                  borderRadius: "8px",
-                  minWidth: "100%",
-                  overflow: "visible",
-                },
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search className="text-gray-500" style={{ fontSize: "1.5rem" }} />
-                  </InputAdornment>
-                ),
-              }}
-            />
-          )}
-        />
-        <IconButton onClick={locateUser} color="primary">
-          <MyLocation />
-        </IconButton>
-      </Paper>
-      <div ref={mapRef} className="absolute inset-0 rounded-xl border-2 border-gray-300 shadow-lg"></div>
+    <div className="relative w-full h-screen p-4">
+      <div className="w-full h-full border-2 border-gray-300 rounded-xl shadow-lg overflow-hidden relative">
+        {/* Search Bar at Top Center */}
+        <Paper className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 p-2 shadow-lg flex items-center w-[450px]">
+          <Autocomplete
+            freeSolo
+            options={locations.map((option) => option.name)}
+            onInputChange={handleSearch}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                variant="outlined"
+                size="small"
+                placeholder="Search locations..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                fullWidth
+                style={{ width: "100%", minWidth: "400px" }}
+                InputProps={{
+                  ...params.InputProps,
+                  style: {
+                    fontSize: "1rem",
+                    padding: "12px",
+                    borderRadius: "8px",
+                    minWidth: "100%",
+                    overflow: "visible",
+                  },
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search className="text-gray-500" style={{ fontSize: "1.5rem" }} />
+                    </InputAdornment>
+                  ),
+                }}
+              />
+            )}
+          />
+          <IconButton onClick={locateUser} color="primary">
+            <MyLocation />
+          </IconButton>
+        </Paper>
+        {/* Map */}
+        <div ref={mapRef} className="w-full h-full"></div>
+      </div>
     </div>
   );
 };
 
-export default GoogleMap;
+export default GoogleMap; 

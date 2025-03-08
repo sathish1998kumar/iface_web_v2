@@ -26,11 +26,11 @@ const StatCard = ({ icon: Icon, label, value, color, gradient, index, activeInde
       whileHover={{ scale: 1.1 }}
       className={`relative flex flex-col items-center justify-center rounded-2xl ${gradient} p-6 shadow-xl transition-all duration-300 opacity-85 cursor-pointer`}
       onClick={onClick}
-    >
+      >
       <motion.div>
         <Icon className={`w-14 h-14 ${color}`} />
       </motion.div>
-      <p className="text-xl font-semibold text-gray-800 mt-4">{label}</p>
+      <p className="text-xl font-semiold text-gray-800 mt-4">{label}</p>
       <div className="flex items-center mt-2">
         <CountUp
           start={start ? 0 : null}
@@ -62,7 +62,6 @@ const CardCount = () => {
     { icon: UserCheck, label: "Present Employees", value: 9840, color: "text-violet-600", gradient: "bg-gray-100" },
     { icon: UserX, label: "Absent Employees", value: 145, color: "text-red-600", gradient: "bg-gray-100" },
   ];
-
   // Logout function
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");

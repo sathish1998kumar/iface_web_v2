@@ -28,7 +28,7 @@ const PaymentDetailsReport = () => {
     if (!sortConfig.key) return 0;
     return (sortConfig.direction === "asc" ? 1 : -1) * a[sortConfig.key].localeCompare(b[sortConfig.key]);
   });
-
+  
   // Generate PDF
   const generatePDF = () => {
     const doc = new jsPDF();

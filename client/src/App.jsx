@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { Container, Typography } from "@mui/material";
 import Login from "./pages/Login";
 import Dashboard from "./pages/Dashboard";
 import CardCount from "./pages/CardCount";
@@ -20,19 +19,15 @@ import EmployeeList from "./pages/List/EmployeeList";
 import UserList from "./pages/List/UserList";
 import Layout from "./components/Layout";
 import ProtectedRoute from "./pages/ProtectedRoute";
-import PaymentDetailsReport from "./pages/Reports/PaymentPendingReport";
 
 const App = () => {
-  // Pending payments state
   const [pendingPayments, setPendingPayments] = useState([
     { id: 1, name: "Arun Kumar", company: "Chennai ABC Pvt Ltd", amount: "₹10,000", status: "Pending", details: "Invoice from Chennai branch pending", date: "2024-02-01" },
     { id: 4, name: "Vignesh", company: "Trichy DEF Solutions", amount: "₹20,000", status: "Pending", details: "Invoice from Trichy branch pending", date: "2024-02-04" },
     { id: 6, name: "Manikandan", company: "Thanjavur JKL Tech", amount: "₹25,000", status: "Pending", details: "Invoice from Thanjavur branch pending", date: "2024-02-06" },
     { id: 9, name: "Krishna", company: "Cuddalore STU Enterprises", amount: "₹28,000", status: "Pending", details: "Invoice from Cuddalore branch pending", date: "2024-02-09" },
-
   ]);
 
-  // Function to remove a pending payment
   const closePendingPayment = (id) => {
     setPendingPayments(pendingPayments.filter(payment => payment.id !== id));
   };
@@ -56,7 +51,6 @@ const App = () => {
         <Route path="/reports/payment-pending" element={<ProtectedRoute><Layout><PaymentPendingReport /></Layout></ProtectedRoute>} />
         <Route path="/list/employees" element={<ProtectedRoute><Layout><EmployeeList /></Layout></ProtectedRoute>} />
         <Route path="/list/users" element={<ProtectedRoute><Layout><UserList /></Layout></ProtectedRoute>} />
-        <Route path="/payments" element={<PaymentDetailsReport />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Router>
