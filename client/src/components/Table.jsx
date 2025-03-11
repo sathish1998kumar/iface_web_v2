@@ -14,7 +14,6 @@ const Table = ({ data }) => {
       ? value.toString().toLowerCase().includes(search.toLowerCase())
       : false;
   });
-
   return (
     <div className="overflow-x-auto bg-white shadow-md rounded-lg p-4">
       {/* Filter and Search Options */}
