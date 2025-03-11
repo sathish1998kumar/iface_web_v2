@@ -43,14 +43,6 @@ const Navbar = () => {
             className="w-full px-4 py-2 rounded-lg text-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
           />
         </div>
-
-        {/* Filter Dropdown */}
-        <select className="px-4 py-2 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-indigo-500 transition-all duration-300">
-          <option value="all">All Users</option>
-          <option value="active">Active Users</option>
-          <option value="inactive">Inactive Users</option>
-        </select>
-
         {/* Admin Profile Dropdown */}
         <div className="relative">
           <button
@@ -133,13 +125,6 @@ const Navbar = () => {
                 className="w-full px-4 py-2 rounded-lg text-sm bg-gray-700 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all duration-300"
               />
             </div>
-
-            {/* Mobile Filter Dropdown */}
-            <select className="w-full px-4 py-2 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-indigo-500 transition-all duration-300">
-              <option value="all">All Users</option>
-              <option value="active">Active Users</option>
-              <option value="inactive">Inactive Users</option>
-            </select>
           </div>
         </div>
       )}

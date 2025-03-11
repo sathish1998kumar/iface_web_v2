@@ -261,7 +261,6 @@ const Sidebar = () => {
       </div>
        {/* Main Content Area */}
        <div className="flex-1 ml-14 md:ml-0 p-0">
-        {/* Your main content here */}
       </div>
     </div>
   );
