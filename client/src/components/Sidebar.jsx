@@ -9,11 +9,8 @@ const Sidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
   const handleLogout = () => {
-    // Clear session storage or authentication tokens
     localStorage.removeItem("isLoggedIn"); // Example: Clear token from local storage
     sessionStorage.clear(); // Clear session storage if used
-
-    // Redirect to login page
     navigate("/login"); // Adjust the path as needed
   };
 
@@ -21,9 +18,8 @@ const Sidebar = () => {
     <div className="flex">
       {/* Sidebar */}
       <div
-        className={`bg-gradient-to-b from-gray-800 to-gray-900 text-white h-screen fixed top-0 left-0 z-50 md:relative transition-all duration-300 shadow-lg ${
-          isCollapsed ? "w-16" : "w-64"
-        }`}
+        className={`bg-gradient-to-b from-gray-800 to-gray-900 text-white h-screen fixed top-0 left-0 z-50 md:relative transition-all duration-300 shadow-lg ${isCollapsed ? "w-16" : "w-64"
+          }`}
       >
         {/* Sidebar Header */}
         <div className="flex items-center justify-between px-4 h-16 bg-gray-900 border-b border-gray-700">
@@ -48,10 +44,9 @@ const Sidebar = () => {
               <NavLink
                 to="/dashboard"
                 className={({ isActive }) =>
-                  `flex items-center px-4 py-3 ${
-                    isActive
-                      ? "bg-indigo-600 text-white shadow-md"
-                      : "hover:bg-gray-700 hover:text-indigo-300"
+                  `flex items-center px-4 py-3 ${isActive
+                    ? "bg-indigo-600 text-white shadow-md"
+                    : "hover:bg-gray-700 hover:text-indigo-300"
                   } transition-all duration-300 rounded-md`
                 }
               >
@@ -66,7 +61,7 @@ const Sidebar = () => {
 
             {/* Reports Section */}
             <li>
-            <div className="flex items-center px-4 py-3">
+              <div className="flex items-center px-4 py-3">
                 <i className="fas fa-chart-line text-sm"></i>
                 <span
                   className={`ml-4 text-sm font-semibold ${isCollapsed ? "hidden" : ""}`}
@@ -78,12 +73,11 @@ const Sidebar = () => {
               <ul className={`pl-8 space-y-2 ${isCollapsed ? "hidden" : ""}`}>
                 <li>
                   <NavLink
-                   to="/reports/daily"
+                    to="/reports/daily"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -93,12 +87,11 @@ const Sidebar = () => {
                 </li>
                 <li>
                   <NavLink
-                        to="/reports/consolidated"
+                    to="/reports/consolidated"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -110,10 +103,9 @@ const Sidebar = () => {
                   <NavLink
                     to="/reports/time-based"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -125,10 +117,9 @@ const Sidebar = () => {
                   <NavLink
                     to="/reports/incharge-monthly"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -140,10 +131,9 @@ const Sidebar = () => {
                   <NavLink
                     to="/reports/designation"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -155,10 +145,9 @@ const Sidebar = () => {
                   <NavLink
                     to="/reports/monthly"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -170,10 +159,9 @@ const Sidebar = () => {
                   <NavLink
                     to="/reports/continuous-absent"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -185,10 +173,9 @@ const Sidebar = () => {
                   <NavLink
                     to="/reports/payment-pending"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -201,7 +188,7 @@ const Sidebar = () => {
 
             {/* List Section */}
             <li>
-            <div className="flex items-center px-4 py-3">
+              <div className="flex items-center px-4 py-3">
                 <i className="fas fa-list text-sm"></i>
                 <span
                   className={`ml-4 text-sm font-semibold ${isCollapsed ? "hidden" : ""}`}
@@ -215,10 +202,9 @@ const Sidebar = () => {
                   <NavLink
                     to="/list/employees"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -230,10 +216,9 @@ const Sidebar = () => {
                   <NavLink
                     to="/list/users"
                     className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${
-                        isActive
-                          ? "bg-indigo-600 text-white shadow-md"
-                          : "hover:bg-gray-700 hover:text-indigo-300"
+                      `flex items-center px-4 py-2 ${isActive
+                        ? "bg-indigo-600 text-white shadow-md"
+                        : "hover:bg-gray-700 hover:text-indigo-300"
                       } transition-all duration-300 rounded-md`
                     }
                   >
@@ -241,7 +226,7 @@ const Sidebar = () => {
                     <span className="ml-4 text-sm">User List</span>
                   </NavLink>
                 </li>
-                
+
               </ul>
             </li>
             {/* Logout */}
@@ -259,8 +244,8 @@ const Sidebar = () => {
           </ul>
         </nav>
       </div>
-       {/* Main Content Area */}
-       <div className="flex-1 ml-14 md:ml-0 p-0">
+      {/* Main Content Area */}
+      <div className="flex-1 ml-14 md:ml-0 p-0">
       </div>
     </div>
   );

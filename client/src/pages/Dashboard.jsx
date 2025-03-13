@@ -37,7 +37,7 @@ const dashboardData = {
   ],
 };
 
-const Dashboard = ({ pendingPayments = [], closePendingPayment = () => {} }) => {
+const Dashboard = ({ pendingPayments = [], closePendingPayment = () => { } }) => {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
 

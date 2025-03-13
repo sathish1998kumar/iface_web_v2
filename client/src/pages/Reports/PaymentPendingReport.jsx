@@ -28,7 +28,7 @@ const PaymentDetailsReport = () => {
     if (!sortConfig.key) return 0;
     return (sortConfig.direction === "asc" ? 1 : -1) * a[sortConfig.key].localeCompare(b[sortConfig.key]);
   });
-  
+
   // Generate PDF
   const generatePDF = () => {
     const doc = new jsPDF();
@@ -49,7 +49,7 @@ const PaymentDetailsReport = () => {
 
   return (
     <div className="p-6 bg-white rounded-lg shadow-md">
-      <h2 className="text-xl font-semibold mb-4">Payment Details Report</h2>  
+      <h2 className="text-xl font-semibold mb-4">Payment Details Report</h2>
       <div className="flex justify-end mb-6 pr-4 space-x-2">
         <Button variant="contained" color="primary" onClick={handleAddNew} className="px-4 py-2">
           <FaPlus className="mr-2" /> Add New
@@ -82,7 +82,16 @@ const PaymentDetailsReport = () => {
               <td className="p-2">{item.name}</td>
               <td className="p-2">{item.company}</td>
               <td className="p-2">{item.amount}</td>
-              <td className={`p-2 font-semibold ${item.status === "Pending" ? "text-red-500" : item.status === "Process" ? "text-yellow-500" : "text-green-500"}`}>
+              <td className={`p-2 font-semibold ${item.status === "Pending"
+                  ? "text-red-500"
+                  : item.status === "Process"
+                    ? "text-yellow-500"
+                    : item.status === "In Process"
+                      ? "text-blue-500"
+                      : item.status === "Paid Pending"
+                        ? "text-purple-500"
+                        : "text-green-500"
+                }`}>
                 {item.status}
               </td>
               <td className="p-2">{item.details}</td>
