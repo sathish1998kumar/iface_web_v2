@@ -58,31 +58,32 @@ const PaymentDetailsReport = () => {
           <FaFilePdf className="mr-2" /> Download PDF
         </Button>
       </div>
-      <table className="w-full border rounded-lg">
-        <thead>
-          <tr className="bg-gray-200">
-            {[
-              { key: "name", label: "Name" },
-              { key: "company", label: "Company" },
-              { key: "amount", label: "Amount" },
-              { key: "status", label: "Status" },
-              { key: "details", label: "Details" },
-              { key: "date", label: "Date" }
-            ].map(column => (
-              <th key={column.key} className="p-2 cursor-pointer" onClick={() => setSortConfig({ key: column.key, direction: sortConfig.direction === "asc" ? "desc" : "asc" })}>
-                {column.label} <FaSort className="inline" />
-              </th>
-            ))}
-            <th className="p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {sortedData.map(item => (
-            <tr key={item.id} className="border-t text-center">
-              <td className="p-2">{item.name}</td>
-              <td className="p-2">{item.company}</td>
-              <td className="p-2">{item.amount}</td>
-              <td className={`p-2 font-semibold ${item.status === "Pending"
+      <div className="overflow-x-auto">
+        <table className="w-full border rounded-lg">
+          <thead className="sticky top-0 bg-gray-200 z-10">
+            <tr>
+              {[
+                { key: "name", label: "Name" },
+                { key: "company", label: "Company" },
+                { key: "amount", label: "Amount" },
+                { key: "status", label: "Status" },
+                { key: "details", label: "Details" },
+                { key: "date", label: "Date" }
+              ].map(column => (
+                <th key={column.key} className="p-2 cursor-pointer" onClick={() => setSortConfig({ key: column.key, direction: sortConfig.direction === "asc" ? "desc" : "asc" })}>
+                  {column.label} <FaSort className="inline" />
+                </th>
+              ))}
+              <th className="p-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {sortedData.map(item => (
+              <tr key={item.id} className="border-t text-center">
+                <td className="p-2">{item.name}</td>
+                <td className="p-2">{item.company}</td>
+                <td className="p-2">{item.amount}</td>
+                <td className={`p-2 font-semibold ${item.status === "Pending"
                   ? "text-red-500"
                   : item.status === "Process"
                     ? "text-yellow-500"
@@ -91,19 +92,20 @@ const PaymentDetailsReport = () => {
                       : item.status === "Paid Pending"
                         ? "text-purple-500"
                         : "text-green-500"
-                }`}>
-                {item.status}
-              </td>
-              <td className="p-2">{item.details}</td>
-              <td className="p-2">{item.date}</td>
-              <td className="p-2 space-x-2">
-                <Button size="small" onClick={() => setEditEntry(item)}><FaEdit className="text-blue-500" /></Button>
-                <Button size="small" onClick={() => setDeleteEntry(item)}><FaTrash className="text-red-500" /></Button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+                  }`}>
+                  {item.status}
+                </td>
+                <td className="p-2">{item.details}</td>
+                <td className="p-2">{item.date}</td>
+                <td className="p-2 space-x-2">
+                  <Button size="small" onClick={() => setEditEntry(item)}><FaEdit className="text-blue-500" /></Button>
+                  <Button size="small" onClick={() => setDeleteEntry(item)}><FaTrash className="text-red-500" /></Button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {/* Edit Modal */}
       <Modal open={!!editEntry} onClose={() => { setEditEntry(null); setAddEntry(false); }}>

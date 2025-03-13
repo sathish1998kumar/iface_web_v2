@@ -16,7 +16,7 @@ const columns = [
   { label: "Animator", key: "animator" },
   { label: "FT/DBC", key: "ft_dbc" },
   { label: "Incharge", key: "incharge" },
-  { label: "MCC/SHG", key: "mcc_shg" },
+  { label: "MCC/SHG", key: "mcc_shg" }, 
   { label: "PER/CW", key: "per_cw" },
   { label: "PT/DBC", key: "pt_dbc" },
   { label: "SHG/CW", key: "shg_cw" },

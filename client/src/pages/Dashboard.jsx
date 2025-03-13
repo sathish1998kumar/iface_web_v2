@@ -9,7 +9,6 @@ import { Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, 
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 
-// Register Chart.js components
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, TooltipJS, LegendJS);
 
 const dashboardData = {
@@ -256,12 +255,13 @@ const Dashboard = ({ pendingPayments = [], closePendingPayment = () => { } }) =>
             <Typography sx={{ color: "#757575", textAlign: "center" }}>No pending payments!</Typography>
           )}
         </DialogContent>
+        
 
         <DialogActions sx={{ bgcolor: "#F5F5F5", px: 3, py: 2 }}>
           <Button onClick={() => setOpen(false)} variant="outlined" color="secondary">
             Close
           </Button>
-          <Button variant="contained" color="primary" onClick={() => navigate("/reports/Payment-Pending-Report")}>
+          <Button variant="contained" color="primary" onClick={() => navigate("/reports/payment-pending")}>
             View Details
           </Button>
         </DialogActions>

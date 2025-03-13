@@ -95,11 +95,10 @@ const Login = () => {
       </div>
 
       <ToastContainer />
-      <div className="max-w-screen-lg m-0 sm:m-8 bg-white shadow-lg sm:rounded-xl flex flex-col lg:flex-row justify-between flex-1 transform transition-all duration-500 hover:scale-105 rounded-[50px] relative z-10">
+<div className="max-w-screen-lg m-0 sm:m-8 bg-white/80 shadow-lg sm:rounded-xl flex flex-col lg:flex-row justify-between flex-1 transform transition-all duration-500 hover:scale-105 rounded-[50px] relative z-10">
         <div className="flex-1 bg-green-100 text-center hidden lg:flex rounded-[20px] overflow-hidden">
           <div className="m-12 xl:m-1 w-full bg-contain bg-center bg-no-repeat" style={{ backgroundImage: "url('/background.svg')" }}></div>
-        </div>
-
+        </div> 
         <div className="lg:w-1/2 xl:w-5/12 p-4 sm:p-8 flex flex-col justify-center items-center">
           <div className="mb-4">
             <img src="/iface_v.2.png" alt="Logo" className="w-29 h-28 object-contain" />
