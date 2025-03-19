@@ -12,7 +12,6 @@ const Navbar = () => {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   const handleSearchChange = (e) => setSearchQuery(e.target.value);
-
   const handleLogout = () => {
     // Clear session storage or authentication tokens
     localStorage.removeItem("isLoggedIn"); // Example: Clear token from local storage

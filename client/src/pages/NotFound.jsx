@@ -12,7 +12,7 @@ const NotFound = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 text-white overflow-hidden">
       <div className="text-center animate-fade-in-up">
         <h1 className="text-9xl font-bold text-white animate-bounce">
-          404
+           404
         </h1>
         <h2 className="mt-4 text-4xl font-semibold text-white animate-fade-in">
           Page Not Found
