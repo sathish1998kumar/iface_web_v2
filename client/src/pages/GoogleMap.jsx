@@ -5,20 +5,17 @@ import {
   Paper,
   IconButton,
   InputAdornment,
-  Button,
-  Typography,
 } from "@mui/material";
 import { Search, MyLocation, ZoomIn, ZoomOut, Home } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-import { LoadScript } from "@react-google-maps/api";
+import { useJsApiLoader } from "@react-google-maps/api";
 import MarkerClusterer from "@googlemaps/markerclustererplus";
+import { ClipLoader } from "react-spinners";
 
 const GoogleMap = () => {
   const mapRef = useRef(null);
   const [map, setMap] = useState(null);
   const [search, setSearch] = useState("");
-  const [filteredLocations, setFilteredLocations] = useState([]);
-  const [infoWindow, setInfoWindow] = useState(null);
   const navigate = useNavigate();
 
   const locations = [
@@ -48,18 +45,20 @@ const GoogleMap = () => {
     { name: "Moscow HQ", lat: 55.7558, lng: 37.6173, present: 125, absent: 20, totalEmployees: 145, address: "Moscow, Russia" }
   ];
 
-  useEffect(() => {
-    const initMap = () => {
-      if (!mapRef.current || map) return;
+  const { isLoaded } = useJsApiLoader({
+    id: "google-map-script",
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Load from .env
+  });
 
+  useEffect(() => {
+    if (isLoaded && !map) {
       const newMap = new window.google.maps.Map(mapRef.current, {
         center: { lat: 20, lng: 0 },
         zoom: 3,
-        mapTypeControl: false,
+        mapTypeControl: true,
         streetViewControl: false,
         fullscreenControl: false,
       });
-
       setMap(newMap);
 
       const markers = locations.map((location) => {
@@ -127,22 +126,8 @@ const GoogleMap = () => {
         imagePath:
           "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
       });
-    };
-
-    if (!window.google) {
-      const script = document.createElement("script");
-      script.src = `https://maps.googleapis.com/maps/api/js?key=AIzaSyBAajo1CfPyRxHf18mzhJLLQwsuXbb6sPA&callback=initMap`;
-      script.async = true;
-      window.initMap = initMap;
-      document.body.appendChild(script);
-    } else {
-      initMap();
     }
-
-    return () => {
-      window.initMap = null;
-    };
-  }, [navigate]);
+  }, [isLoaded, map, locations, navigate]);
 
   const handleSearch = (event, value) => {
     setSearch(value);
@@ -170,6 +155,14 @@ const GoogleMap = () => {
       map.setZoom(3);
     }
   };
+
+  if (!isLoaded) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <ClipLoader color="#1a73e8" size={50} />
+      </div>
+    );
+  }
 
   return (
     <div className="relative w-full h-screen p-4">

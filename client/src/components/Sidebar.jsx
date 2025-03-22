@@ -241,11 +241,9 @@ const Sidebar = () => {
                 </span>
               </button>
             </li>
+            
           </ul>
         </nav>
-      </div>
-      {/* Main Content Area */}
-      <div className="flex-1 ml-14 md:ml-0 p-0">
       </div>
     </div>
   );
