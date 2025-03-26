@@ -21,6 +21,8 @@ const DataTable = ({ data, columns, title }) => {
     columns.reduce((acc, col) => ({ ...acc, [col.key]: true }), {})
   );
   const [showColumnDropdown, setShowColumnDropdown] = useState(false);
+  const [selectedRow, setSelectedRow] = useState(null); // State to store the selected row data
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
 
   // Handle Sorting
   const handleSort = (key) => {
@@ -39,7 +41,7 @@ const DataTable = ({ data, columns, title }) => {
 
   // Search & Filter
   const filteredData = sortedData.filter((row) =>
-    columns.some((col) => row[col.key]?.toString().toLowerCase().includes(searchQuery.toLowerCase()))
+    columns.some((col ) => row[col.key]?.toString().toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   // Pagination
@@ -91,109 +93,126 @@ const DataTable = ({ data, columns, title }) => {
     setVisibleColumns((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
+  // Handle Row Click
+  const handleRowClick = (row) => {
+    setSelectedRow(row);
+    setIsModalOpen(true);
+  };
+
+  // Close Modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedRow(null);
+  };
+
   return (
     <div className="p-4 sm:p-6 bg-gray-100 min-h-screen">
-    <h1 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800">{title}</h1>
+      <h1 className="text-xl sm:text-2xl font-bold mb-4 text-gray-800">{title}</h1>
 
-    {/* Controls Container */}
-    <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-4 items-center justify-between">
-      {/* Search Input */}
-      <input
-        type="text"
-        placeholder="Search..."
-        value={searchQuery}
-        onChange={(e) => setSearchQuery(e.target.value)}
-        className="border px-4 py-2 rounded w-full sm:w-64 shadow-sm text-sm sm:text-base"
-      />
+      {/* Controls Container */}
+      <div className="flex flex-col sm:flex-row flex-wrap gap-4 mb-4 items-center justify-between">
+        {/* Search Input */}
+        <input
+          type="text"
+          placeholder="Search..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="border px-4 py-2 rounded w-full sm:w-64 shadow-sm text-sm sm:text-base"
+        />
 
-      {/* Buttons Section */}
-      <div className="flex flex-wrap gap-2 w-full sm:w-auto justify-center sm:justify-end">
-        {/* Show Columns Dropdown */}
-        <div className="relative">
-          <button 
-            onClick={() => setShowColumnDropdown(!showColumnDropdown)} 
-            className="bg-gray-500 text-white px-4 py-2 rounded-md flex items-center gap-2 text-sm sm:text-base"
-          >
-            <FaEye /> Show Columns
+        {/* Buttons Section */}
+        <div className="flex flex-wrap gap-2 w-full sm:w-auto justify-center sm:justify-end">
+          {/* Show Columns Dropdown */}
+          <div className="relative">
+            <button 
+              onClick={() => setShowColumnDropdown(!showColumnDropdown)} 
+              className="bg-gray-500 text-white px-4 py-2 rounded-md flex items-center gap-2 text-sm sm:text-base"
+            >
+              <FaEye /> Show Columns
+            </button>
+            {showColumnDropdown && (
+              <div className="absolute right-0 sm:right-auto mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-20">
+                {columns.map((col) => (
+                  <label key={col.key} className="flex items-center px-4 py-2 hover:bg-gray-100">
+                    <input
+                      type="checkbox"
+                      checked={visibleColumns[col.key]}
+                      onChange={() => toggleColumnVisibility(col.key)}
+                      className="mr-2"
+                    />
+                    {col.label}
+                  </label>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Export Buttons */}
+          <button onClick={exportToPDF} className="bg-red-500 text-white px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm md:text-base">
+            Export PDF
           </button>
-          {showColumnDropdown && (
-            <div className="absolute right-0 sm:right-auto mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-20">
-              {columns.map((col) => (
-                <label key={col.key} className="flex items-center px-4 py-2 hover:bg-gray-100">
-                  <input
-                    type="checkbox"
-                    checked={visibleColumns[col.key]}
-                    onChange={() => toggleColumnVisibility(col.key)}
-                    className="mr-2"
-                  />
-                  {col.label}
-                </label>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Export Buttons */}
-        <button onClick={exportToPDF} className="bg-red-500 text-white px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm md:text-base">
-          Export PDF
-        </button>
-        <button onClick={exportToExcel} className="bg-green-500 text-white px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm md:text-base">
-          Export Excel
-        </button>
-        <button onClick={exportToCSV} className="bg-blue-500 text-white px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm md:text-base">
-          Export CSV
-        </button>
+          <button onClick={exportToExcel} className="bg-green-500 text-white px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm md:text-base">
+            Export Excel
+          </button>
+          <button onClick={exportToCSV} className="bg-blue-500 text-white px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm md:text-base">
+            Export CSV
+          </button>
         </div>
       </div>
 
       {/* Table */}
       <div className="w-full overflow-x-auto border border-gray-300 shadow-md rounded-lg">
-      <div className="max-h-[600px] overflow-y-auto">
-        <table
-          id="report-table"
-          className="table-auto border-separate border-spacing-0 w-full min-w-full bg-white"
-          style={{ tableLayout: "auto" }} // Allows columns to adjust dynamically
-        >
-          {/* Table Header */}
-          <thead className="bg-gray-200 sticky top-0 z-10">
-            <tr className="text-gray-800">
-              {columns.map(
-                (col) =>
-                  visibleColumns[col.key] && (
-                    <th
-                      key={col.key}
-                      className="border border-gray-300 px-4 py-2 cursor-pointer hover:bg-gray-300 text-sm sm:text-base"
-                      onClick={() => handleSort(col.key)}
-                    >
-                      {col.label}{" "}
-                      {sortConfig.key === col.key &&
-                        (sortConfig.direction === "asc" ? <FaSortUp /> : <FaSortDown />)}
-                    </th>
-                  )
-              )}
-            </tr>
-          </thead>
-          {/* Table Body */}
-          <tbody>
-            {currentRows.map((row, index) => (
-              <tr key={index} className="text-center hover:bg-gray-100">
+        <div className="max-h-[600px] overflow-y-auto">
+          <table
+            id="report-table"
+            className="table-auto border-separate border-spacing-0 w-full min-w-full bg-white"
+            style={{ tableLayout: "auto" }} // Allows columns to adjust dynamically
+          >
+            {/* Table Header */}
+            <thead className="bg-gray-200 sticky top-0 z-10">
+              <tr className="text-gray-800">
                 {columns.map(
                   (col) =>
                     visibleColumns[col.key] && (
-                      <td
+                      <th
                         key={col.key}
-                        className="border border-gray-300 px-4 py-3 break-words text-left text-sm sm:text-base"
+                        className="border border-gray-300 px-4 py-2 cursor-pointer hover:bg-gray-300 text-sm sm:text-base"
+                        onClick={() => handleSort(col.key)}
                       >
-                        {row[col.key]}
-                      </td>
+                        {col.label}{" "}
+                        {sortConfig.key === col.key &&
+                          (sortConfig.direction === "asc" ? <FaSortUp /> : <FaSortDown />)}
+                      </th>
                     )
                 )}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            {/* Table Body */}
+            <tbody>
+              {currentRows.map((row, index) => (
+                <tr 
+                  key={index} 
+                  className="text-center hover:bg-gray-200 cursor-pointer"
+                  onClick={() => handleRowClick(row)}
+                >
+                  {columns.map(
+                    (col) =>
+                      visibleColumns[col.key] && (
+                        <td
+                          key={col.key}
+                          className="border border-gray-300 px-4 py-3 break-words text-left text-sm sm:text-base"
+                        >
+                          {row[col.key]}
+                        </td>
+                      )
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+
       {/* Pagination */}
       <div className="flex flex-col sm:flex-row justify-between items-center mt-4 gap-2">
         <span className="text-sm sm:text-base">
@@ -211,6 +230,29 @@ const DataTable = ({ data, columns, title }) => {
           </select>
         </div>
       </div>
+
+      {/* Modal */}
+      {isModalOpen && selectedRow && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-2xl w-full">
+            <h2 className="text-xl font-bold mb-4">Row Details</h2>
+            <div className="space-y-4">
+              {columns.map((col) => (
+                <div key={col.key} className="flex justify-between">
+                  <span className="font-semibold">{col.label}:</span>
+                  <span>{selectedRow[col.key]}</span>
+                </div>
+              ))}
+            </div>
+            <button 
+              onClick={closeModal} 
+              className="mt-4 bg-gray-500 text-white px-4 py-2 rounded-md hover:bg-gray-600"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

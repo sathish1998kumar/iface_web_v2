@@ -4,7 +4,7 @@ import { Bar as BarJS } from "react-chartjs-2";
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip as TooltipJS, Legend as LegendJS } from "chart.js";
 import Navbar from "../components/Navbar";
 import Sidebar from "../components/Sidebar";
-import { FaUsers, FaCheckCircle, FaTimesCircle } from "react-icons/fa"; // Importing React Icons
+import { FaUsers, FaCheckCircle, FaTimesCircle } from "react-icons/fa";
 import { Typography, Button, Dialog, DialogTitle, DialogContent, DialogActions, IconButton, Box, Paper } from "@mui/material"; // Importing MUI components
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
@@ -29,10 +29,10 @@ const dashboardData = {
     { name: "Late", value: 5 },
   ],
   employeePerformance: [
-    { name: "John Doe", performance: 85 },
-    { name: "Jane Smith", performance: 90 },
-    { name: "Emily Brown", performance: 78 },
-    { name: "Chris Wilson", performance: 92 },
+    { name: "Doe", performance: 85 },
+    { name: "Smith", performance: 90 },
+    { name: "Brown", performance: 78 },
+    { name: "Wilson", performance: 92 },
   ],
 };
 
@@ -225,8 +225,8 @@ const Dashboard = ({ pendingPayments = [], closePendingPayment = () => { } }) =>
       {/* Payment Dialog */}
       <Dialog open={open} onClose={() => setOpen(false)} maxWidth="sm" fullWidth>
         <DialogTitle sx={{ bgcolor: "#1976D2", color: "white", display: "flex", justifyContent: "space-between", alignItems: "center", px: 3, py: 2 }}>
-          <Typography variant="h6">Pending Payments</Typography>
-          <IconButton onClick={() => setOpen(false)} color="inherit">
+        <Typography component="h2" variant="h6">Pending Payments</Typography>
+        <IconButton onClick={() => setOpen(false)} color="inherit">
             <CloseIcon />
           </IconButton>
         </DialogTitle>
@@ -255,8 +255,7 @@ const Dashboard = ({ pendingPayments = [], closePendingPayment = () => { } }) =>
             <Typography sx={{ color: "#757575", textAlign: "center" }}>No pending payments!</Typography>
           )}
         </DialogContent>
-        
-
+      
         <DialogActions sx={{ bgcolor: "#F5F5F5", px: 3, py: 2 }}>
           <Button onClick={() => setOpen(false)} variant="outlined" color="secondary">
             Close

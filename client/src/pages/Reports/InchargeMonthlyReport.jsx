@@ -1,5 +1,5 @@
 import DataTable from "../DataTable";
-import emp1 from "../../assets/emp2.png"// Import image
+import emp2 from "../../assets/emp2.png"; // Import image
 
 const InchargeMonthlyReport = () => {
   const columns = [
@@ -14,10 +14,10 @@ const InchargeMonthlyReport = () => {
   ];
 
   const data = [
-    { sno: 1, name: "Vimal Raj/ Rathana Kumar", id: "NA", present: 27, absent: 5, yard: "Thirunagar colony(SHG/CW)", zone: "Zone 1", photo: emp1 },
-    { sno: 2, name: "MayilVaganan/NarayanaSamy", id: "NA", present: 28, absent: 4, yard: "R.N Pudur(SHG/DRIVER)", zone: "Zone 1", photo: emp1 },
-    { sno: 3, name: "Gowtham/Duraisamy", id: "NA", present: 24, absent: 8, yard: "R.N Pudur(SHG/CW)", zone: "Zone 1", photo: emp1 },
-    { sno: 4, name: "Farman/Firose Ahamed", id: "NA", present: 26, absent: 6, yard: "B.P Agraharam(SHG/CW)", zone: "Zone 1", photo: emp1 },
+    { sno: 1, name: "Vimal Raj/ Rathana Kumar", id: "NA", present: 27, absent: 5, yard: "Thirunagar colony(SHG/CW)", zone: "Zone 1", photo: emp2 },
+    { sno: 2, name: "MayilVaganan/NarayanaSamy", id: "NA", present: 28, absent: 4, yard: "R.N Pudur(SHG/DRIVER)", zone: "Zone 1", photo: emp2 },
+    { sno: 3, name: "Gowtham/Duraisamy", id: "NA", present: 24, absent: 8, yard: "R.N Pudur(SHG/CW)", zone: "Zone 1", photo: emp2 },
+    { sno: 4, name: "Farman/Firose Ahamed", id: "NA", present: 26, absent: 6, yard: "B.P Agraharam(SHG/CW)", zone: "Zone 1", photo: emp2 },
   ];
 
   return <DataTable title="Incharge Monthly Report" columns={columns} data={data} />;
