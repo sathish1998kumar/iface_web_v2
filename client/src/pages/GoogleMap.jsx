@@ -5,8 +5,10 @@ import {
   Paper,
   IconButton,
   InputAdornment,
+  Button,
 } from "@mui/material";
 import { Search, MyLocation, ZoomIn, ZoomOut, Home } from "@mui/icons-material";
+import { LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useJsApiLoader } from "@react-google-maps/api";
 import MarkerClusterer from "@googlemaps/markerclustererplus";
@@ -17,6 +19,12 @@ const GoogleMap = () => {
   const [map, setMap] = useState(null);
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+
+  // Logout function
+  const handleLogout = () => {
+    localStorage.removeItem("isLoggedIn");
+    window.location.href = "/";
+  };
 
   const locations = [
     { name: "RTS (India)", lat: 11.1271, lng: 78.6569, present: 50, absent: 10, totalEmployees: 60, address: "123 Main St, Erode, Tamil Nadu" },
@@ -47,7 +55,7 @@ const GoogleMap = () => {
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY, // Load from .env
+    googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAPS_API_KEY,
   });
 
   useEffect(() => {
@@ -121,7 +129,6 @@ const GoogleMap = () => {
         return marker;
       });
 
-      // Add marker clustering
       new MarkerClusterer(newMap, markers, {
         imagePath:
           "https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m",
@@ -166,6 +173,28 @@ const GoogleMap = () => {
 
   return (
     <div className="relative w-full h-screen p-4">
+      {/* Logout Button */}
+      <Button
+        onClick={handleLogout}
+        variant="contained"
+        color="error"
+        startIcon={<LogOut size={18} />}
+        sx={{
+          position: "absolute",
+          top: 16,
+          right: 16,
+          zIndex: 1000,
+          borderRadius: "8px",
+          textTransform: "none",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.2)",
+          "&:hover": {
+            boxShadow: "0 4px 8px rgba(0,0,0,0.3)",
+          }
+        }}
+      >
+        Logout
+      </Button>
+
       <div className="w-full h-full border-2 border-gray-300 rounded-xl shadow-lg overflow-hidden relative">
         {/* Search Bar */}
         <Paper className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10 p-2 shadow-lg flex items-center w-[450px]">
