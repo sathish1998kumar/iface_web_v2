@@ -18,9 +18,9 @@ const DailyReport = () => {
   }));
 
   const columns = [
-    { key: "photo", label: "Photo", type: "image" },
     { key: "id", label: "ID" },
     { key: "name", label: "Name" },
+    { key: "photo", label: "Photo", type: "image" },
     { key: "designation", label: "Designation" },
     { key: "attendance", label: "Attendance" },
     { key: "workHours", label: "Work Hours" },

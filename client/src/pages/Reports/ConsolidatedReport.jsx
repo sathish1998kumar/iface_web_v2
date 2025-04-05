@@ -10,10 +10,13 @@ const ConsolidatedReport = () => {
       const users = await fetchUsers();
       setData(users);  // Set the fetched data
     };
-
     getUsers();
   }, []);
 
+
+
+
+  
   // Define table columns
   const columns = [
     { key: "id", label: "ID" },
