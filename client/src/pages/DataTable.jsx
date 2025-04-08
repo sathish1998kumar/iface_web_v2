@@ -2,20 +2,10 @@ import React, { useState } from "react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import * as XLSX from "xlsx";
-import {
-  FaSortUp,
-  FaSortDown,
-  FaAngleLeft,
-  FaAngleRight,
-  FaAngleDoubleLeft,
-  FaAngleDoubleRight,
-  FaEye,
-  FaFilter,
-  FaCalendarAlt,
-  FaTimes,
-} from "react-icons/fa";
+import { FaSortUp, FaSortDown, FaAngleLeft, FaAngleRight, FaAngleDoubleLeft, FaAngleDoubleRight, FaEye, FaFilter, FaCalendarAlt, FaTimes, } from "react-icons/fa";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import companyLogo from "../assets/iface_v.2.png";
 
 const DataTable = ({ data, columns, title }) => {
   // State management
@@ -29,19 +19,22 @@ const DataTable = ({ data, columns, title }) => {
   const [selectedRow, setSelectedRow] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // New filter states
+  // Filter states
   const [showColumnDropdown, setShowColumnDropdown] = useState(false);
   const [showZoneFilter, setShowZoneFilter] = useState(false);
+  const [showYardFilter, setShowYardFilter] = useState(false);
   const [showDateFilter, setShowDateFilter] = useState(false);
   const [selectedZones, setSelectedZones] = useState([]);
+  const [selectedYards, setSelectedYards] = useState([]);
   const [dateFilter, setDateFilter] = useState({
     option: "all", // "all", "today", "custom"
     startDate: null,
     endDate: null
   });
 
-  // Zone options (assuming there's a 'zone' column in the data)
+  // Filter options
   const zoneOptions = ["Zone 1", "Zone 2", "Zone 3", "Zone 4"];
+  const yardOptions = ["Yard 1", "Yard 2", "Yard 3", "Yard 4"];
 
   // Handle Sorting
   const handleSort = (key) => {
@@ -70,6 +63,10 @@ const DataTable = ({ data, columns, title }) => {
     const matchesZone = selectedZones.length === 0 ||
       (row.zone && selectedZones.includes(row.zone));
 
+    // Yard filter
+    const matchesYard = selectedYards.length === 0 ||
+      (row.yard && selectedYards.includes(row.yard));
+
     // Date filter
     let matchesDate = true;
     if (dateFilter.option === "today" && row.date) {
@@ -81,7 +78,7 @@ const DataTable = ({ data, columns, title }) => {
         (!dateFilter.endDate || rowDate <= dateFilter.endDate);
     }
 
-    return matchesSearch && matchesZone && matchesDate;
+    return matchesSearch && matchesZone && matchesYard && matchesDate;
   });
 
   // Pagination
@@ -97,7 +94,17 @@ const DataTable = ({ data, columns, title }) => {
         ? prev.filter(z => z !== zone)
         : [...prev, zone]
     );
-    setCurrentPage(1); // Reset to first page when filter changes
+    setCurrentPage(1);
+  };
+
+  // Toggle yard selection
+  const toggleYard = (yard) => {
+    setSelectedYards(prev =>
+      prev.includes(yard)
+        ? prev.filter(y => y !== yard)
+        : [...prev, yard]
+    );
+    setCurrentPage(1);
   };
 
   // Handle date filter change
@@ -114,6 +121,7 @@ const DataTable = ({ data, columns, title }) => {
   const resetFilters = () => {
     setSearchQuery("");
     setSelectedZones([]);
+    setSelectedYards([]);
     setDateFilter({
       option: "all",
       startDate: null,
@@ -128,14 +136,31 @@ const DataTable = ({ data, columns, title }) => {
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
   };
 
-  const exportToPDF = () => {
+  const exportToPDF = async () => {
     const input = document.getElementById("report-table");
-    html2canvas(input).then((canvas) => {
+
+    try {
+      const canvas = await html2canvas(input);
+      const imgData = canvas.toDataURL("image/png");
+      const imgWidth = 190; // mm
+      const imgHeight = (canvas.height * imgWidth) / canvas.width;
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      pdf.addImage(companyLogo, 'PNG', 10, 10, 30, 10); // Adjust size as needed
+      pdf.setFontSize(16);
+      pdf.setTextColor(40);
+      pdf.text(title, 45, 18); // Positioned to the right of the logo
+      pdf.setFontSize(10);
+      pdf.text(`Generated on: ${getFormattedDate()}`, 45, 23);
+      pdf.addImage(imgData, 'PNG', 10, 30, imgWidth, imgHeight);
+      pdf.save(`${title}_${getFormattedDate()}.pdf`);
+    } catch (error) {
+      console.error('Error generating PDF:', error);
+      const canvas = await html2canvas(input);
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF();
       pdf.addImage(imgData, "PNG", 10, 10, 190, 0);
       pdf.save(`${title}_${getFormattedDate()}.pdf`);
-    });
+    }
   };
 
   const exportToExcel = () => {
@@ -231,6 +256,29 @@ const DataTable = ({ data, columns, title }) => {
                         className="mr-2"
                       />
                       {zone}
+                    </label>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="relative">
+              <button
+                onClick={() => setShowYardFilter(!showYardFilter)}
+                className="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-md text-sm flex items-center gap-2"
+              >
+                <FaFilter /> Yards
+              </button>
+              {showYardFilter && (
+                <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-300 rounded-md shadow-lg z-20 p-2">
+                  {yardOptions.map((yard) => (
+                    <label key={yard} className="flex items-center px-3 py-1 hover:bg-gray-100 rounded">
+                      <input
+                        type="checkbox"
+                        checked={selectedYards.includes(yard)}
+                        onChange={() => toggleYard(yard)}
+                        className="mr-2"
+                      />
+                      {yard}
                     </label>
                   ))}
                 </div>
@@ -359,7 +407,7 @@ const DataTable = ({ data, columns, title }) => {
         )}
 
         {/* Active filters display */}
-        {(searchQuery || selectedZones.length > 0 || dateFilter.option !== "all") && (
+        {(searchQuery || selectedZones.length > 0 || selectedYards.length > 0 || dateFilter.option !== "all") && (
           <div className="mb-4 p-3 bg-blue-50 rounded-lg border border-blue-200">
             <div className="flex flex-wrap items-center gap-2">
               <span className="text-sm font-medium text-blue-800">Active filters:</span>
@@ -379,6 +427,17 @@ const DataTable = ({ data, columns, title }) => {
                   Zones: {selectedZones.join(", ")}
                   <button
                     onClick={() => setSelectedZones([])}
+                    className="text-blue-500 hover:text-blue-700"
+                  >
+                    <FaTimes size={10} />
+                  </button>
+                </span>
+              )}
+              {selectedYards.length > 0 && (
+                <span className="bg-white px-2 py-1 rounded-full text-xs flex items-center gap-1 border border-blue-200">
+                  Yards: {selectedYards.join(", ")}
+                  <button
+                    onClick={() => setSelectedYards([])}
                     className="text-blue-500 hover:text-blue-700"
                   >
                     <FaTimes size={10} />
@@ -421,14 +480,14 @@ const DataTable = ({ data, columns, title }) => {
                 id="report-table"
                 className="min-w-full divide-y divide-gray-200"
               >
-                <thead className="sticky top-0 z-10 bg-gradient-to-r from-blue-50 to-indigo-50 border-b border-gray-200">
+                <thead className="sticky top-0 z-10 bg-blue-100 border-b border-blue-300">
                   <tr>
                     {columns.map((col) => (
                       visibleColumns[col.key] && (
                         <th
                           key={col.key}
                           scope="col"
-                          className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-blue-100 transition-colors duration-150"
+                          className="px-6 py-3 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider cursor-pointer hover:bg-blue-200 transition-colors duration-150"
                           onClick={() => handleSort(col.key)}
                         >
                           <div className="flex items-center">
