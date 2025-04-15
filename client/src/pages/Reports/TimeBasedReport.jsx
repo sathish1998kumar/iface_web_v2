@@ -14,6 +14,7 @@ const columns = [
   { label: "Shift", key: "shift" },
   { label: "Time Slot", key: "timeSlot" },
   { label: "Animator", key: "animator" },
+  
   { label: "FT/DBC", key: "ft_dbc" },
   { label: "Incharge", key: "incharge" },
   { label: "MCC/SHG", key: "mcc_shg" }, 

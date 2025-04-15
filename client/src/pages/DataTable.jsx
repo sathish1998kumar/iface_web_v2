@@ -33,8 +33,8 @@ const DataTable = ({ data, columns, title }) => {
   });
 
   // Filter options
-  const zoneOptions = ["Zone 1", "Zone 2", "Zone 3", "Zone 4"];
-  const yardOptions = ["Yard 1", "Yard 2", "Yard 3", "Yard 4"];
+  const zoneOptions = ["zone 1", "zone 2", "zone 3", "zone 4"];
+  const yardOptions = ["yard 1", "yard 2", "yard 3", "yard 4"];
 
   // Handle Sorting
   const handleSort = (key) => {

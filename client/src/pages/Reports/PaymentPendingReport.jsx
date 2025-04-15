@@ -9,7 +9,7 @@ const PaymentDetailsReport = () => {
     // Load data from JSON (or replace with API call if needed)
     setData(paymentData.invoices);
   }, []);
-
+  
   // Define columns for DataTable
   const columns = [
     { key: "id", label: "Invoice ID" },
@@ -24,9 +24,7 @@ const PaymentDetailsReport = () => {
   return (
     <div>
       <DataTable 
-        data={data} 
-        columns={columns} 
-        title="Payment Details Report" 
+        data={data} columns={columns} title="Payment Details Report" 
       />
     </div>
   );
