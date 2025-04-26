@@ -34,34 +34,34 @@ const GoogleMap = () => {
     { name: "Mumbai Office", lat: 19.076, lng: 72.8777, present: 120, absent: 30, totalEmployees: 150, address: "Mumbai, Maharashtra, India" },
     { name: "Delhi HQ", lat: 28.6139, lng: 77.209, present: 140, absent: 25, totalEmployees: 165, address: "New Delhi, India" },
     { name: "Bangalore Tech Park", lat: 12.9716, lng: 77.5946, present: 110, absent: 15, totalEmployees: 125, address: "Bangalore, Karnataka, India" },
-    { name: "Hyderabad Office", lat: 17.385, lng: 78.4867, present: 100, absent: 20, totalEmployees: 120, address: "Hyderabad, Telangana, India" },
     { name: "Chennai Hub", lat: 13.0827, lng: 80.2707, present: 95, absent: 10, totalEmployees: 105, address: "Chennai, Tamil Nadu, India" },
     { name: "Pune Development Center", lat: 18.5204, lng: 73.8567, present: 130, absent: 15, totalEmployees: 145, address: "Pune, Maharashtra, India" },
-    { name: "Kolkata Branch", lat: 22.5726, lng: 88.3639, present: 90, absent: 10, totalEmployees: 100, address: "Kolkata, West Bengal, India" },
     { name: "Ahmedabad Unit", lat: 23.0225, lng: 72.5714, present: 85, absent: 5, totalEmployees: 90, address: "Ahmedabad, Gujarat, India" },
     { name: "Jaipur Corporate", lat: 26.9124, lng: 75.7873, present: 75, absent: 10, totalEmployees: 85, address: "Jaipur, Rajasthan, India" },
     { name: "Lucknow Branch", lat: 26.8467, lng: 80.9462, present: 60, absent: 10, totalEmployees: 70, address: "Lucknow, Uttar Pradesh, India" },
-
     { name: "Nagpur Regional Office", lat: 21.1458, lng: 79.0882, present: 80, absent: 10, totalEmployees: 90, address: "Nagpur, Maharashtra, India" },
     { name: "Indore Tech Center", lat: 22.7196, lng: 75.8577, present: 95, absent: 5, totalEmployees: 100, address: "Indore, Madhya Pradesh, India" },
-    { name: "Bhopal Operations", lat: 23.2599, lng: 77.4126, present: 70, absent: 10, totalEmployees: 80, address: "Bhopal, Madhya Pradesh, India" },
     { name: "Patna Branch", lat: 25.5941, lng: 85.1376, present: 65, absent: 5, totalEmployees: 70, address: "Patna, Bihar, India" },
     { name: "Ranchi Office", lat: 23.3441, lng: 85.3096, present: 60, absent: 5, totalEmployees: 65, address: "Ranchi, Jharkhand, India" },
-    { name: "Bhubaneswar Development", lat: 20.2961, lng: 85.8245, present: 75, absent: 5, totalEmployees: 80, address: "Bhubaneswar, Odisha, India" },
     { name: "Guwahati Regional", lat: 26.1445, lng: 91.7362, present: 55, absent: 5, totalEmployees: 60, address: "Guwahati, Assam, India" },
     { name: "Chandigarh Office", lat: 30.7333, lng: 76.7794, present: 85, absent: 5, totalEmployees: 90, address: "Chandigarh, India" },
-    { name: "Dehradun Center", lat: 30.3165, lng: 78.0322, present: 60, absent: 5, totalEmployees: 65, address: "Dehradun, Uttarakhand, India" },
     { name: "Shimla Branch", lat: 31.1048, lng: 77.1734, present: 40, absent: 5, totalEmployees: 45, address: "Shimla, Himachal Pradesh, India" },
-    { name: "Thiruvananthapuram Office", lat: 8.5241, lng: 76.9366, present: 90, absent: 10, totalEmployees: 100, address: "Thiruvananthapuram, Kerala, India" },
     { name: "Kochi Operations", lat: 9.9312, lng: 76.2673, present: 85, absent: 5, totalEmployees: 90, address: "Kochi, Kerala, India" },
     { name: "Goa Development", lat: 15.2993, lng: 74.1240, present: 50, absent: 5, totalEmployees: 55, address: "Panaji, Goa, India" },
-    { name: "Visakhapatnam Branch", lat: 17.6868, lng: 83.2185, present: 75, absent: 5, totalEmployees: 80, address: "Visakhapatnam, Andhra Pradesh, India" },
     { name: "Vijayawada Office", lat: 16.5062, lng: 80.6480, present: 65, absent: 5, totalEmployees: 70, address: "Vijayawada, Andhra Pradesh, India" },
     { name: "Raipur Center", lat: 21.2514, lng: 81.6296, present: 60, absent: 5, totalEmployees: 65, address: "Raipur, Chhattisgarh, India" },
     { name: "Jamshedpur Plant", lat: 22.8046, lng: 86.2029, present: 110, absent: 10, totalEmployees: 120, address: "Jamshedpur, Jharkhand, India" },
     { name: "Surat Operations", lat: 21.1702, lng: 72.8311, present: 95, absent: 5, totalEmployees: 100, address: "Surat, Gujarat, India" },
     { name: "Vadodara Office", lat: 22.3072, lng: 73.1812, present: 80, absent: 5, totalEmployees: 85, address: "Vadodara, Gujarat, India" },
-    { name: "Nashik Branch", lat: 20.0059, lng: 73.7913, present: 70, absent: 5, totalEmployees: 75, address: "Nashik, Maharashtra, India" },
+    { name: "New York HQ", lat: 40.7128, lng: -74.0060, present: 200, absent: 15, totalEmployees: 215, address: "123 Madison Ave, New York, USA" },
+    { name: "London Office", lat: 51.5074, lng: -0.1278, present: 180, absent: 20, totalEmployees: 200, address: "456 Queen St, London, UK" },
+    { name: "Berlin Hub", lat: 52.52, lng: 13.4050, present: 160, absent: 10, totalEmployees: 170, address: "789 Alexanderplatz, Berlin, Germany" },
+    { name: "Tokyo Branch", lat: 35.6895, lng: 139.6917, present: 210, absent: 25, totalEmployees: 235, address: "1-2-3 Shibuya, Tokyo, Japan" },
+    { name: "Sydney Office", lat: -33.8688, lng: 151.2093, present: 140, absent: 10, totalEmployees: 150, address: "88 George St, Sydney, Australia" },
+    { name: "Paris Office", lat: 48.8566, lng: 2.3522, present: 130, absent: 15, totalEmployees: 145, address: "22 Rue de Rivoli, Paris, France" },
+    { name: "Toronto Office", lat: 43.651070, lng: -79.347015, present: 170, absent: 20, totalEmployees: 190, address: "500 Bloor St W, Toronto, Canada" },
+    { name: "Dubai Office", lat: 25.2048, lng: 55.2708, present: 120, absent: 10, totalEmployees: 130, address: "Downtown Blvd, Dubai, UAE" },
+    { name: "Singapore Office", lat: 1.3521, lng: 103.8198, present: 150, absent: 5, totalEmployees: 155, address: "Orchard Rd, Singapore" },
   ];
 
   const { isLoaded } = useJsApiLoader({
@@ -209,11 +209,11 @@ const GoogleMap = () => {
 
   const resetMap = () => {
     if (map) {
-      map.setCenter({ lat: 20, lng: 0 });
-      map.setZoom(3);
+      map.setCenter({ lat: 22.9734, lng:78.6569 }); // Center of India
+      map.setZoom(4); // Adjusted zoom for India view
     }
   };
-
+  
   if (!isLoaded) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -298,8 +298,8 @@ const GoogleMap = () => {
             <Home />
           </IconButton>
         </div>
-
-        {/* Map */}
+        
+           {/* Map */}
         <div ref={mapRef} className="w-full h-full"></div>
       </div>
     </div>
