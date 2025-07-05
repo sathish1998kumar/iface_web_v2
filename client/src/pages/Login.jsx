@@ -205,20 +205,20 @@ const Login = () => {
     showToast("OTP sent successfully! Check your mobile", "success");
   };
 
-  const handleLogin = (data) => {
-    if (data.otp === "12345") {
-      localStorage.setItem("isLoggedIn", "true");
-      showToast("Login successful! Redirecting...", "success");
-      setTimeout(() => navigate("/CardCount"), 2000);
-    }
-    if (data.otp === "54321") {
-      localStorage.setItem("isLoggedIn", "true");
-      showToast("Login successful! Redirecting...", "success");
-      setTimeout(() => navigate("/dashboard"), 2000);
-    } else {
-      showToast("Invalid OTP! Please try again", "error");
-    }
-  };
+const handleLogin = (data) => {
+  const { otp } = data;
+
+  if (otp === "12345" || otp === "54321") {
+    localStorage.setItem("isLoggedIn", "true");
+    showToast("Login successful! Redirecting...", "success");
+
+    const redirectPath = otp === "12345" ? "/CardCount" : "/dashboard";
+    setTimeout(() => navigate(redirectPath), 2000);
+  } else {
+    showToast("Invalid OTP! Please try again", "error");
+  }
+};
+
 
   const handleOtpChange = (otpValue) => {
     setValue("otp", otpValue, { shouldValidate: true });

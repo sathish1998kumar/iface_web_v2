@@ -179,7 +179,7 @@ const Sidebar = () => {
                       } transition-all duration-300 rounded-md`
                     }
                   >
-                    <i className="fas fa-user-slash text-xs"></i>
+                    <i className="fas fa-file-invoice-dollar text-xs"></i>
                     <span className="ml-4 text-sm">PaymentPendingReport</span>
                   </NavLink>
                 </li>
