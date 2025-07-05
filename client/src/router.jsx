@@ -27,6 +27,9 @@ const reportPages = {
 // Lists
 const EmployeeList = lazy(() => import("./pages/List/EmployeeList"));
 const UserList = lazy(() => import("./pages/List/UserList"));
+const InchargeList = lazy(() => import("./pages/List/InchargeList"));
+const SupervisorList = lazy(() => import("./pages/List/SupervisorList"));
+
 
 // Wrappers for reuse
 const withProtection = (Component, props = {}) => (
@@ -68,6 +71,8 @@ const AppRoutes = ({ pendingPayments, closePendingPayment }) => (
     {/* Lists */}
     <Route path="/list/employees" element={withLayout(EmployeeList)} />
     <Route path="/list/users" element={withLayout(UserList)} />
+    <Route path="/list/incharge" element={withLayout(InchargeList)} />
+    <Route path="/list/supervisors" element={withLayout(SupervisorList)} />
 
     {/* Fallback */}
     <Route path="*" element={<NotFound />} />

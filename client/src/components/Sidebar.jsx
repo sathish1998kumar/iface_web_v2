@@ -229,6 +229,41 @@ const Sidebar = () => {
 
               </ul>
             </li>
+            <li>
+          <div className="flex items-center px-4 py-3">
+          <i className="fas fa-clipboard-list text-sm"></i>
+              <span className={`ml-4 text-sm font-semibold ${isCollapsed ? "hidden" : ""}`}>Pages</span>
+            </div>
+            <ul className={`pl-8 space-y-2 ${isCollapsed ? "hidden" : ""}`}>
+                  <li>
+                <NavLink
+                  to="/list/supervisors"
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 ${
+                      isActive ? "bg-indigo-600 text-white shadow-md" : "hover:bg-gray-700 hover:text-indigo-300"
+                    } transition-all duration-300 rounded-md`
+                  }
+                >
+                  <i className="fas fa-users-cog text-xs"></i>
+                  <span className="ml-4 text-sm">Supervisor List</span>
+                </NavLink>
+              </li>
+
+              <li>
+                <NavLink
+                  to="/list/incharge"
+                  className={({ isActive }) =>
+                    `flex items-center px-4 py-2 ${
+                      isActive ? "bg-indigo-600 text-white shadow-md" : "hover:bg-gray-700 hover:text-indigo-300"
+                    } transition-all duration-300 rounded-md`
+                  }
+                >
+                  <i className="fas fa-briefcase text-xs"></i>
+                  <span className="ml-4 text-sm">In-Charge List</span>
+                </NavLink>
+              </li>
+            </ul>
+          </li>
             {/* Logout */}
             <li>
               <button
