@@ -11,7 +11,11 @@ const Navbar = () => {
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
-  const handleSearchChange = (e) => setSearchQuery(e.target.value);
+  const handleSearchChange = (e) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    if (onSearch) onSearch(value); // Trigger parent handler
+  };
 
   const handleLogout = () => {
     localStorage.removeItem("isLoggedIn");
@@ -203,5 +207,6 @@ const Navbar = () => {
     </nav>
   );
 };
+
 
 export default Navbar;
