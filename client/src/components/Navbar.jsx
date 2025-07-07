@@ -67,7 +67,7 @@ const Navbar = () => {
             <div className="w-8 h-8 rounded-full bg-gradient-to-r from-cyan-500 to-blue-500 flex items-center justify-center text-white font-semibold">
               A
             </div>
-            <span className="text-lg hidden lg:inline-block">Admin</span>
+            <span className="text-lg hidden lg:inline-block"></span>
             <svg className={`w-4 h-4 transition-transform duration-200 ${isDropdownOpen ? "transform rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
             </svg>

@@ -2,268 +2,121 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const Sidebar = () => {
-  const [isCollapsed, setIsCollapsed] = useState(true); // Sidebar collapsed state
-  const navigate = useNavigate(); // Hook to navigate programmatically
+  const [isCollapsed, setIsCollapsed] = useState(true);
+  const navigate = useNavigate();
+  const role = localStorage.getItem("role");
+
+  const isSuperAdmin = role === "Super Admin";
+  const isAdmin = role === "Admin";
+  const isInCharge = role === "In-Charge";
+  const isSupervisor = role === "Supervisor";
+  const isEmployee = role === "Employee";
+  const isSubstitute = role === "Substitute";
 
   const toggleSidebar = () => {
     setIsCollapsed(!isCollapsed);
   };
+
   const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn"); // Example: Clear token from local storage
-    sessionStorage.clear(); // Clear session storage if used
-    navigate("/login"); // Adjust the path as needed
+    localStorage.removeItem("isLoggedIn");
+    localStorage.removeItem("role");
+    sessionStorage.clear();
+    navigate("/login");
   };
 
   return (
     <div className="flex">
-      {/* Sidebar */}
       <div
         className={`bg-gradient-to-b from-gray-800 to-gray-900 text-white h-screen fixed top-0 left-0 z-50 md:relative transition-all duration-300 shadow-lg ${isCollapsed ? "w-16" : "w-64"
           }`}
       >
-        {/* Sidebar Header */}
+        {/* Header */}
         <div className="flex items-center justify-between px-4 h-16 bg-gray-900 border-b border-gray-700">
           {!isCollapsed && (
-            <h1 className="text-base font-bold uppercase tracking-wide text-indigo-400 transition-all duration-300">
-              Welcome Admin
+            <h1 className="text-base font-bold uppercase tracking-wide text-indigo-400">
+              Welcome {role}
             </h1>
           )}
-          <button
-            className="text-white"
-            onClick={toggleSidebar}
-          >
+          <button className="text-white" onClick={toggleSidebar}>
             <i className={`fas ${isCollapsed ? "fa-bars" : "fa-times"}`}></i>
           </button>
         </div>
 
-        {/* Navigation Links */}
-        <nav className="flex-1 py-">
-          <ul className="space-y">
-            {/* Dashboard */}
+        {/* Navigation */}
+        <nav className="flex-1 py-4">
+          <ul className="space-y-1">
+            {/* Dashboard - All Roles */}
             <li>
-              <NavLink
-                to="/dashboard"
-                className={({ isActive }) =>
-                  `flex items-center px-4 py-3 ${isActive
-                    ? "bg-indigo-600 text-white shadow-md"
-                    : "hover:bg-gray-700 hover:text-indigo-300"
-                  } transition-all duration-300 rounded-md`
-                }
-              >
-                <i className="fas fa-tachometer-alt text-sm"></i>
-                <span
-                  className={`ml-4 text-sm ${isCollapsed ? "hidden" : ""}`}
-                >
-                  Dashboard
-                </span>
-              </NavLink>
+              <NavItem to="/dashboard" label="Dashboard" icon="fas fa-tachometer-alt" isCollapsed={isCollapsed} />
             </li>
 
-            {/* Reports Section */}
-            <li>
-              <div className="flex items-center px-4 py-3">
-                <i className="fas fa-chart-line text-sm"></i>
-                <span
-                  className={`ml-4 text-sm font-semibold ${isCollapsed ? "hidden" : ""}`}
-                >
-                  Reports
-                </span>
-              </div>
-              {/* Sub-navigation under Reports */}
-              <ul className={`pl-8 space-y-2 ${isCollapsed ? "hidden" : ""}`}>
-                <li>
-                  <NavLink
-                    to="/reports/daily"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-file-alt text-xs"></i>
-                    <span className="ml-4 text-sm">Details Report</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/reports/consolidated"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-layer-group text-xs"></i>
-                    <span className="ml-4 text-sm">Consolidated Report</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/reports/time-based"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-clock text-xs"></i>
-                    <span className="ml-4 text-sm">Time-Based Report</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/reports/incharge-monthly"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-user-tie text-xs"></i>
-                    <span className="ml-4 text-sm">Incharge Monthly Report</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/reports/designation"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-id-badge text-xs"></i>
-                    <span className="ml-4 text-sm">Designation Report</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/reports/monthly"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-calendar-alt text-xs"></i>
-                    <span className="ml-4 text-sm">Monthly Report</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/reports/continuous-absent"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-user-slash text-xs"></i>
-                    <span className="ml-4 text-sm">Continuously Absent Report</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/reports/payment-pending"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-file-invoice-dollar text-xs"></i>
-                    <span className="ml-4 text-sm">PaymentPendingReport</span>
-                  </NavLink>
-                </li>
-              </ul>
-            </li>
-
-            {/* List Section */}
-            <li>
-              <div className="flex items-center px-4 py-3">
-                <i className="fas fa-list text-sm"></i>
-                <span
-                  className={`ml-4 text-sm font-semibold ${isCollapsed ? "hidden" : ""}`}
-                >
-                  List
-                </span>
-              </div>
-              {/* Sub-navigation under List */}
-              <ul className={`pl-8 space-y-2 ${isCollapsed ? "hidden" : ""}`}>
-                <li>
-                  <NavLink
-                    to="/list/employees"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-users text-xs"></i>
-                    <span className="ml-4 text-sm">Employee List</span>
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink
-                    to="/list/users"
-                    className={({ isActive }) =>
-                      `flex items-center px-4 py-2 ${isActive
-                        ? "bg-indigo-600 text-white shadow-md"
-                        : "hover:bg-gray-700 hover:text-indigo-300"
-                      } transition-all duration-300 rounded-md`
-                    }
-                  >
-                    <i className="fas fa-user text-xs"></i>
-                    <span className="ml-4 text-sm">User List</span>
-                  </NavLink>
-                </li>
-
-              </ul>
-            </li>
-            <li>
-          <div className="flex items-center px-4 py-3">
-          <i className="fas fa-clipboard-list text-sm"></i>
-              <span className={`ml-4 text-sm font-semibold ${isCollapsed ? "hidden" : ""}`}>Pages</span>
-            </div>
-            <ul className={`pl-8 space-y-2 ${isCollapsed ? "hidden" : ""}`}>
-                  <li>
-                <NavLink
-                  to="/list/supervisors"
-                  className={({ isActive }) =>
-                    `flex items-center px-4 py-2 ${
-                      isActive ? "bg-indigo-600 text-white shadow-md" : "hover:bg-gray-700 hover:text-indigo-300"
-                    } transition-all duration-300 rounded-md`
-                  }
-                >
-                  <i className="fas fa-users-cog text-xs"></i>
-                  <span className="ml-4 text-sm">Supervisor List</span>
-                </NavLink>
-              </li>
-
+            {/* Reports - Admin + Super Admin */}
+            {(isAdmin || isSuperAdmin) && (
               <li>
-                <NavLink
-                  to="/list/incharge"
-                  className={({ isActive }) =>
-                    `flex items-center px-4 py-2 ${
-                      isActive ? "bg-indigo-600 text-white shadow-md" : "hover:bg-gray-700 hover:text-indigo-300"
-                    } transition-all duration-300 rounded-md`
-                  }
-                >
-                  <i className="fas fa-briefcase text-xs"></i>
-                  <span className="ml-4 text-sm">In-Charge List</span>
-                </NavLink>
+                <SectionTitle icon="fas fa-chart-line" label="Reports" isCollapsed={isCollapsed} />
+                <ul className={`pl-8 space-y-2 ${isCollapsed ? "hidden" : ""}`}>
+                  <NavItem to="/reports/daily" label="Details Report" icon="fas fa-file-alt" />
+                  <NavItem to="/reports/consolidated" label="Consolidated Report" icon="fas fa-layer-group" />
+                  <NavItem to="/reports/time-based" label="Time-Based Report" icon="fas fa-clock" />
+                  <NavItem to="/reports/incharge-monthly" label="Incharge Monthly" icon="fas fa-user-tie" />
+                  <NavItem to="/reports/designation" label="Designation Report" icon="fas fa-id-badge" />
+                  <NavItem to="/reports/monthly" label="Monthly Report" icon="fas fa-calendar-alt" />
+                  <NavItem to="/reports/continuous-absent" label="Continuously Absent" icon="fas fa-user-slash" />
+                  <NavItem to="/reports/payment-pending" label="Payment Pending" icon="fas fa-file-invoice-dollar" />
+                </ul>
               </li>
-            </ul>
-          </li>
+            )}
+
+            {/* Incharge Reports */}
+            {(isInCharge || isSuperAdmin) && (
+              <li>
+                <SectionTitle icon="fas fa-chart-pie" label="Reports" isCollapsed={isCollapsed} />
+                <ul className={`pl-8 space-y-2 ${isCollapsed ? "hidden" : ""}`}>
+                  <NavItem to="/reports/incharge-monthly" label="Incharge Monthly" icon="fas fa-user-tie" />
+                </ul>
+              </li>
+            )}
+
+            {/* Lists - Admin + Super Admin */}
+            {(isAdmin || isSuperAdmin) && (
+              <li>
+                <SectionTitle icon="fas fa-list" label="Lists" isCollapsed={isCollapsed} />
+                <ul className={`pl-8 space-y-2 ${isCollapsed ? "hidden" : ""}`}>
+                  <NavItem to="/list/employees" label="Employee List" icon="fas fa-users" />
+                  <NavItem to="/list/users" label="User List" icon="fas fa-user" />
+                </ul>
+              </li>
+            )}
+
+            {/* Pages - InCharge + Supervisor + Super Admin */}
+            {(isInCharge || isSupervisor || isSuperAdmin) && (
+              <li>
+                <SectionTitle icon="fas fa-clipboard-list" label="Pages" isCollapsed={isCollapsed} />
+                <ul className={`pl-8 space-y-2 ${isCollapsed ? "hidden" : ""}`}>
+                  {(isSupervisor || isSuperAdmin) && (
+                    <NavItem to="/list/supervisors" label="Supervisor List" icon="fas fa-users-cog" />
+                  )}
+                  {(isInCharge || isSuperAdmin) && (
+                    <NavItem to="/list/incharge" label="In-Charge List" icon="fas fa-briefcase" />
+                  )}
+                </ul>
+              </li>
+            )}
+
+            {/* Employee Page */}
+            {(isEmployee || isSuperAdmin) && (
+              <li>
+                <NavItem to="/employee" label="My Attendance" icon="fas fa-calendar-check" isCollapsed={isCollapsed} />
+              </li>
+            )}
+
+            {/* Substitute Page */}
+            {(isSubstitute || isSuperAdmin) && (
+              <li>
+                <NavItem to="/substitute" label="Substitute Info" icon="fas fa-user-clock" isCollapsed={isCollapsed} />
+              </li>
+            )}
+
             {/* Logout */}
             <li>
               <button
@@ -276,10 +129,37 @@ const Sidebar = () => {
                 </span>
               </button>
             </li>
-            
           </ul>
         </nav>
       </div>
+    </div>
+  );
+};
+
+// 🔁 Reusable NavItem
+const NavItem = ({ to, label, icon, isCollapsed }) => {
+  return (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `flex items-center px-4 py-2 ${isActive
+          ? "bg-indigo-600 text-white shadow-md"
+          : "hover:bg-gray-700 hover:text-indigo-300"
+        } transition-all duration-300 rounded-md`
+      }
+    >
+      <i className={`${icon} text-xs`}></i>
+      <span className={`ml-4 text-sm ${isCollapsed ? "hidden" : ""}`}>{label}</span>
+    </NavLink>
+  );
+};
+
+// 🔁 Reusable Section Title
+const SectionTitle = ({ icon, label, isCollapsed }) => {
+  return (
+    <div className="flex items-center px-4 py-3">
+      <i className={`${icon} text-sm`}></i>
+      <span className={`ml-4 text-sm font-semibold ${isCollapsed ? "hidden" : ""}`}>{label}</span>
     </div>
   );
 };

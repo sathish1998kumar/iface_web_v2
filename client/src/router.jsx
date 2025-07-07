@@ -27,8 +27,14 @@ const reportPages = {
 // Lists
 const EmployeeList = lazy(() => import("./pages/List/EmployeeList"));
 const UserList = lazy(() => import("./pages/List/UserList"));
-const InchargeList = lazy(() => import("./pages/List/InchargeList"));
 const SupervisorList = lazy(() => import("./pages/List/SupervisorList"));
+const InchargeList = lazy(() => import("./pages/List/InchargeList"));
+
+// New Pages
+const InchargePage = lazy(() => import("./pages/InchargePage"));
+const SupervisorPage = lazy(() => import("./pages/SupervisorPage"));
+const EmployeePage = lazy(() => import("./pages/EmployeePage"));
+const SubstitutePage = lazy(() => import("./pages/SubstitutePage"));
 
 
 // Wrappers for reuse
@@ -73,6 +79,11 @@ const AppRoutes = ({ pendingPayments, closePendingPayment }) => (
     <Route path="/list/users" element={withLayout(UserList)} />
     <Route path="/list/incharge" element={withLayout(InchargeList)} />
     <Route path="/list/supervisors" element={withLayout(SupervisorList)} />
+
+    <Route path="/incharge" element={withLayout(InchargePage)} />
+    <Route path="/supervisor" element={withLayout(SupervisorPage)} />
+    <Route path="/substitute" element={withLayout(SubstitutePage)} />
+    <Route path="/employee" element={withLayout(EmployeePage)} />
 
     {/* Fallback */}
     <Route path="*" element={<NotFound />} />

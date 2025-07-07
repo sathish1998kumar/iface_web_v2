@@ -205,19 +205,31 @@ const Login = () => {
     showToast("OTP sent successfully! Check your mobile", "success");
   };
 
+const roleRoutes = {
+  "11111": { role: "Super Admin", path: "/cardcount" },
+  "22222": { role: "Admin", path: "/dashboard" },
+  "33333": { role: "Supervisor", path: "/supervisor" },
+  "44444": { role: "In-Charge", path: "/incharge" },
+  "55555": { role: "Employee", path: "/employee" },
+  "66666": { role: "Substitute", path: "/substitute" }, 
+};
+
 const handleLogin = (data) => {
   const { otp } = data;
 
-  if (otp === "12345" || otp === "54321") {
-    localStorage.setItem("isLoggedIn", "true");
-    showToast("Login successful! Redirecting...", "success");
+  const matchedRole = roleRoutes[otp];
 
-    const redirectPath = otp === "12345" ? "/CardCount" : "/dashboard";
-    setTimeout(() => navigate(redirectPath), 2000);
+  if (matchedRole) {
+    localStorage.setItem("isLoggedIn", "true");
+    localStorage.setItem("role", matchedRole.role); // Store role if needed
+    showToast(`Login successful as ${matchedRole.role}! Redirecting...`, "success");
+
+    setTimeout(() => navigate(matchedRole.path), 2000);
   } else {
     showToast("Invalid OTP! Please try again", "error");
   }
 };
+
 
 
   const handleOtpChange = (otpValue) => {
