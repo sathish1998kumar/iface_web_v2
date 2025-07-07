@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@ant-design/charts": "^2.6.0",
+    "antd": "^5.26.3"
+  }
+}

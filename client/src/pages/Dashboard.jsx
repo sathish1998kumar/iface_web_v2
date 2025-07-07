@@ -124,10 +124,8 @@ const Dashboard = ({ pendingPayments = [], closePendingPayment = () => { } }) =>
   };
 
   return (
-    <div className="flex h-screen bg-gray-50">
-      <Sidebar />
-      <div className="flex-1 min-w-[80%] overflow-y-auto">
-        <Navbar />
+    <div>
+
         <div className="p-6 md:p-8">
           <div className="flex justify-between items-center mb-8">
             <motion.h3
@@ -528,7 +526,6 @@ const Dashboard = ({ pendingPayments = [], closePendingPayment = () => { } }) =>
             </Grid>
           </Grid>
         </div>
-      </div>
 
       {/* Payment Dialog */}
       <Dialog

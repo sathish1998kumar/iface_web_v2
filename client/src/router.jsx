@@ -20,7 +20,9 @@ const reportPages = {
   inchargeMonthly: lazy(() => import("./pages/Reports/InchargeMonthlyReport")),
   designation: lazy(() => import("./pages/Reports/DesignationReport")),
   monthly: lazy(() => import("./pages/Reports/MonthlyReport")),
-  continuousAbsent: lazy(() => import("./pages/Reports/ContinuouslyAbsentReport")),
+  continuousAbsent: lazy(() =>
+    import("./pages/Reports/ContinuouslyAbsentReport")
+  ),
   paymentPending: lazy(() => import("./pages/Reports/PaymentPendingReport")),
 };
 
@@ -36,11 +38,12 @@ const SupervisorPage = lazy(() => import("./pages/SupervisorPage"));
 const EmployeePage = lazy(() => import("./pages/EmployeePage"));
 const SubstitutePage = lazy(() => import("./pages/SubstitutePage"));
 
-
 // Wrappers for reuse
 const withProtection = (Component, props = {}) => (
   <ProtectedRoute>
+    <Layout>
     <Component {...props} />
+    </Layout>
   </ProtectedRoute>
 );
 
@@ -59,20 +62,44 @@ const AppRoutes = ({ pendingPayments, closePendingPayment }) => (
     <Route path="/login" element={<Login />} />
 
     {/* Protected Routes */}
-    <Route path="/dashboard/*" element={withProtection(Dashboard, { pendingPayments, closePendingPayment })} />
+    <Route
+      path="/dashboard/*"
+      element={withProtection(Dashboard, {
+        pendingPayments,
+        closePendingPayment,
+      })}
+    />
     <Route path="/cardcount" element={withProtection(CardCount)} />
     <Route path="/googlemap" element={withProtection(GoogleMap)} />
 
     {/* Reports */}
     <Route path="/reports" element={withProtection(Reports)} />
     <Route path="/reports/daily" element={withLayout(reportPages.daily)} />
-    <Route path="/reports/consolidated" element={withLayout(reportPages.consolidated)} />
-    <Route path="/reports/time-based" element={withLayout(reportPages.timeBased)} />
-    <Route path="/reports/incharge-monthly" element={withLayout(reportPages.inchargeMonthly)} />
-    <Route path="/reports/designation" element={withLayout(reportPages.designation)} />
+    <Route
+      path="/reports/consolidated"
+      element={withLayout(reportPages.consolidated)}
+    />
+    <Route
+      path="/reports/time-based"
+      element={withLayout(reportPages.timeBased)}
+    />
+    <Route
+      path="/reports/incharge-monthly"
+      element={withLayout(reportPages.inchargeMonthly)}
+    />
+    <Route
+      path="/reports/designation"
+      element={withLayout(reportPages.designation)}
+    />
     <Route path="/reports/monthly" element={withLayout(reportPages.monthly)} />
-    <Route path="/reports/continuous-absent" element={withLayout(reportPages.continuousAbsent)} />
-    <Route path="/reports/payment-pending" element={withLayout(reportPages.paymentPending)} />
+    <Route
+      path="/reports/continuous-absent"
+      element={withLayout(reportPages.continuousAbsent)}
+    />
+    <Route
+      path="/reports/payment-pending"
+      element={withLayout(reportPages.paymentPending)}
+    />
 
     {/* Lists */}
     <Route path="/list/employees" element={withLayout(EmployeeList)} />

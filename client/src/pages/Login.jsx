@@ -210,8 +210,9 @@ const roleRoutes = {
   "22222": { role: "Admin", path: "/dashboard" },
   "33333": { role: "Supervisor", path: "/supervisor" },
   "44444": { role: "In-Charge", path: "/incharge" },
-  "55555": { role: "Employee", path: "/employee" },
-  "66666": { role: "Substitute", path: "/substitute" }, 
+  "55555": { role: "Substitute", path: "/substitute" }, 
+  "66666": { role: "Employee", path: "/employee" },
+
 };
 
 const handleLogin = (data) => {
@@ -302,7 +303,7 @@ const handleLogin = (data) => {
         </MuiAlert>
       </Snackbar>
 
-      <div className="max-w-screen-lg m-0 sm:m-8 bg-white/80 shadow-lg sm:rounded-xl flex flex-col lg:flex-row justify-between flex-1 transform transition-all duration-500">
+      <div className="max-w-screen-xl min-h-[59vh] m-0 sm:m-8 bg-white/80 shadow-lg sm:rounded-xl flex flex-col lg:flex-row justify-between flex-1 transform transition-all duration-500">
         <div className="flex-1 bg-green-200 text-center hidden lg:flex rounded-[20px] overflow-hidden">
           <div
             className="m-12 xl:m-1 w-full bg-contain bg-center bg-no-repeat"
