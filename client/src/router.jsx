@@ -41,16 +41,14 @@ const SubstitutePage = lazy(() => import("./pages/SubstitutePage"));
 // Wrappers for reuse
 const withProtection = (Component, props = {}) => (
   <ProtectedRoute>
-    <Layout>
     <Component {...props} />
-    </Layout>
   </ProtectedRoute>
 );
 
-const withLayout = (Component) => (
+const withLayout = (Component,props) => (
   <ProtectedRoute>
     <Layout>
-      <Component />
+      <Component {...props} />
     </Layout>
   </ProtectedRoute>
 );
@@ -64,7 +62,7 @@ const AppRoutes = ({ pendingPayments, closePendingPayment }) => (
     {/* Protected Routes */}
     <Route
       path="/dashboard/*"
-      element={withProtection(Dashboard, {
+      element={withLayout(Dashboard, {
         pendingPayments,
         closePendingPayment,
       })}
