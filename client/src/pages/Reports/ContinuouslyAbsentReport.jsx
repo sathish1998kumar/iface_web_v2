@@ -1,6 +1,6 @@
 import React from "react";
-import DataTable from "../DataTable"; // Assuming you have a DataTable component
-import employeesData from "../data/ContinuouslyAbsentReport.json"; // Import the JSON data
+import DataTable from "../../components/common/DataTable"; // Assuming you have a DataTable component
+import employeesData from "@/data/ContinuouslyAbsentReport.json"; // Import the JSON data
 
 const ContinuouslyAbsentReport = () => {
   // Define the columns for the table
@@ -11,7 +11,7 @@ const ContinuouslyAbsentReport = () => {
     { key: "Designation", label: "Designation" },
     { key: "Zone", label: "Zone" },
     { key: "Category", label: "Category" },
-    { key: "status", label: "Status" }
+    { key: "status", label: "Status" },
   ];
 
   // Filter employees who are inactive (assuming "inactive" means continuously absent)

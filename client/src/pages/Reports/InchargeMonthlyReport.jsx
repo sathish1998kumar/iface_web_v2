@@ -1,5 +1,5 @@
-import DataTable from "../DataTable";
-import monthlyreport from "../data/MonthlyReport.json";
+import DataTable from "../../components/common/DataTable";
+import monthlyreport from "@/data/MonthlyReport.json";
 
 const InchargeMonthlyReport = () => {
   const columns = [
@@ -11,7 +11,13 @@ const InchargeMonthlyReport = () => {
     { key: "yard", label: "Yard" },
   ];
 
-  return <DataTable data={monthlyreport} columns={columns} title="Incharge Monthly Report" />;
+  return (
+    <DataTable
+      data={monthlyreport}
+      columns={columns}
+      title="Incharge Monthly Report"
+    />
+  );
 };
 
 export default InchargeMonthlyReport;

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { fetchUsers } from "../../utils/api";  // Import API function
-import DataTable from "../DataTable";  // Assuming DataTable exists
+import { fetchUsers } from "../../utils/api"; // Import API function
+import DataTable from "../../components/common/DataTable"; // Assuming DataTable exists
 
 const ConsolidatedReport = () => {
   const [data, setData] = useState([]);
@@ -8,15 +8,11 @@ const ConsolidatedReport = () => {
   useEffect(() => {
     const getUsers = async () => {
       const users = await fetchUsers();
-      setData(users);  // Set the fetched data
+      setData(users); // Set the fetched data
     };
     getUsers();
   }, []);
 
-
-
-
-  
   // Define table columns
   const columns = [
     { key: "id", label: "ID" },

@@ -1,7 +1,39 @@
-body {
-  font-family: "Inter", sans-serif;
+/* src/assets/styles/global.css */
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+
+:root {
+  --font-primary: "Inter", sans-serif;
+  --color-heading: #1f2937; /* Tailwind gray-800 */
+  --color-text: #374151;    /* Tailwind gray-700 */
+  --color-bg: #f9fafb;      /* Tailwind gray-50 */
 }
 
-h1, h2 {
-  color: #374151; /* Tailwind gray-700 */
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-heading);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: #2563eb; /* Tailwind blue-600 */
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }

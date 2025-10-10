@@ -1,5 +1,5 @@
 import React from "react";
-import DataTable from "../../pages/DataTable";
+import DataTable from "../../components/common/DataTable";
 
 const inchargeData = [
   {

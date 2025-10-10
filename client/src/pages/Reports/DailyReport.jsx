@@ -1,7 +1,6 @@
 import React from "react";
-import DailyReports from "../data/DailyReports.json";
-import Charts from "../../components/charts/Chart";
-import DataTable from "../DataTable";
+import DailyReports from "@/data/DailyReports.json";
+import DataTable from "../../components/common/DataTable";
 import emp1 from "../../assets/emp1.png";
 
 const DailyReport = () => {
@@ -33,8 +32,11 @@ const DailyReport = () => {
 
   return (
     <div className="p-6">
-      <Charts data={employees} />
-      <DataTable title="Daily Employee Report" columns={columns} data={employees} />
+      <DataTable
+        title="Daily Employee Report"
+        columns={columns}
+        data={employees}
+      />
     </div>
   );
 };

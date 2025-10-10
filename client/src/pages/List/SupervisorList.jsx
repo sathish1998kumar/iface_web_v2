@@ -1,6 +1,6 @@
 // src/pages/List/SupervisorList.jsx
 import React from "react";
-import DataTable from "../../pages/DataTable";
+import DataTable from "../../components/common/DataTable";
 import emp1 from "../../assets/emp1.png";
 
 const supervisorData = [
@@ -145,7 +145,6 @@ const supervisorData = [
     photo: "https://randomuser.me/api/portraits/women/81.jpg",
   },
 ];
-
 
 // 🧠 Add JSX to `photo` & render `zone` as colored tags
 const supervisors = supervisorData.map((employee) => ({

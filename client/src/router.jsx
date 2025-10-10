@@ -1,29 +1,28 @@
-// src/router.jsx
 import React, { lazy } from "react";
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute from "./pages/ProtectedRoute";
-import Layout from "./components/Layout";
+import ProtectedRoute from "./pages/auth/ProtectedRoute";
+import Layout from "./components/layout/Layout";
 
 // Lazy imports
-const Login = lazy(() => import("./pages/Login"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-const CardCount = lazy(() => import("./pages/CardCount"));
-const GoogleMap = lazy(() => import("./pages/GoogleMap"));
+const Login = lazy(() => import("./pages/auth/Login"));
+const Dashboard = lazy(() => import("./pages/dashboard/Dashboard"));
+const CardCount = lazy(() => import("./pages/dashboard/CardCount"));
+const GoogleMap = lazy(() => import("./pages/map/GoogleMap"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Reports
-const Reports = lazy(() => import("./pages/Reports/Reports"));
+const Reports = lazy(() => import("./pages/reports/Reports"));
 const reportPages = {
-  daily: lazy(() => import("./pages/Reports/DailyReport")),
-  consolidated: lazy(() => import("./pages/Reports/ConsolidatedReport")),
-  timeBased: lazy(() => import("./pages/Reports/TimeBasedReport")),
-  inchargeMonthly: lazy(() => import("./pages/Reports/InchargeMonthlyReport")),
-  designation: lazy(() => import("./pages/Reports/DesignationReport")),
-  monthly: lazy(() => import("./pages/Reports/MonthlyReport")),
+  daily: lazy(() => import("./pages/reports/DailyReport")),
+  consolidated: lazy(() => import("./pages/reports/ConsolidatedReport")),
+  timeBased: lazy(() => import("./pages/reports/TimeBasedReport")),
+  inchargeMonthly: lazy(() => import("./pages/reports/InchargeMonthlyReport")),
+  designation: lazy(() => import("./pages/reports/DesignationReport")),
+  monthly: lazy(() => import("./pages/reports/MonthlyReport")),
   continuousAbsent: lazy(() =>
-    import("./pages/Reports/ContinuouslyAbsentReport")
+    import("./pages/reports/ContinuouslyAbsentReport")
   ),
-  paymentPending: lazy(() => import("./pages/Reports/PaymentPendingReport")),
+  paymentPending: lazy(() => import("./pages/reports/PaymentPendingReport")),
 };
 
 // Lists
@@ -34,8 +33,8 @@ const InchargeList = lazy(() => import("./pages/List/InchargeList"));
 
 // New Pages
 const InchargePage = lazy(() => import("./pages/InchargePage"));
-const SupervisorPage = lazy(() => import("./pages/SupervisorPage"));
-const EmployeePage = lazy(() => import("./pages/EmployeePage"));
+const SupervisorPage = lazy(() => import("./pages/supervisor/SupervisorPage"));
+const EmployeePage = lazy(() => import("./pages/employee/EmployeePage"));
 const SubstitutePage = lazy(() => import("./pages/SubstitutePage"));
 
 // Wrappers for reuse
@@ -45,7 +44,7 @@ const withProtection = (Component, props = {}) => (
   </ProtectedRoute>
 );
 
-const withLayout = (Component,props) => (
+const withLayout = (Component, props) => (
   <ProtectedRoute>
     <Layout>
       <Component {...props} />
