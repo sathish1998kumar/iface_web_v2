@@ -1,6 +1,6 @@
 import React from "react";
-import DailyReports from "../data/DailyReports.json";
-import DataTable from "../DataTable";
+import DailyReports from "@/data/DailyReports.json";
+import DataTable from "../../components/common/DataTable";
 import emp1 from "../../assets/emp1.png";
 
 const DailyReport = () => {
@@ -17,9 +17,9 @@ const DailyReport = () => {
   }));
 
   const columns = [
-    { key: "photo", label: "Photo", type: "image" },
     { key: "id", label: "ID" },
     { key: "name", label: "Name" },
+    { key: "photo", label: "Photo", type: "image" },
     { key: "designation", label: "Designation" },
     { key: "attendance", label: "Attendance" },
     { key: "workHours", label: "Work Hours" },
@@ -31,9 +31,12 @@ const DailyReport = () => {
   ];
 
   return (
-    <div className="p-6">      
-      {/* Employee DataTable */}
-      <DataTable title="Daily Employee Report" columns={columns} data={employees} />
+    <div className="p-6">
+      <DataTable
+        title="Daily Employee Report"
+        columns={columns}
+        data={employees}
+      />
     </div>
   );
 };

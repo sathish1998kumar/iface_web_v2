@@ -1,5 +1,5 @@
-import designationData from "../data/Designation.json";
-import DataTable from "../DataTable";
+import designationData from "@/data/Designation.json";
+import DataTable from "../../components/common/DataTable";
 
 const DesignationReport = () => {
   const columns = [
@@ -7,10 +7,16 @@ const DesignationReport = () => {
     { key: "designation", label: "Designation" },
     { key: "total", label: "Total" },
     { key: "present", label: "Present" },
-    { key: "absent", label: "Absent" }
+    { key: "absent", label: "Absent" },
   ];
 
-  return <DataTable data={designationData} columns={columns} title="Designation Report" />;
+  return (
+    <DataTable
+      data={designationData}
+      columns={columns}
+      title="Designation Report"
+    />
+  );
 };
 
 export default DesignationReport;

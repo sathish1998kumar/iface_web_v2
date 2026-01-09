@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import emp3 from "../../assets/emp2.png";
-import UserListData from "../data/UserList.json";
-import EditEmployeeModal from "./EditEmployeeModal";
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
-import DataTable from "../DataTable";
+import UserListData from "@/data/UserList.json";
+import EditEmployeeModal from "../../components/modals/EditEmployeeModal";
+import DeleteConfirmationModal from "../../components/modals/DeleteConfirmationModal";
+import DataTable from "../../components/common/DataTable";
 
 const UserList = () => {
   const [users, setUsers] = useState(UserListData);
@@ -32,7 +32,9 @@ const UserList = () => {
   };
 
   const confirmDelete = () => {
-    setUsers((prevUsers) => prevUsers.filter((usr) => usr.Sno !== selectedUser.Sno));
+    setUsers((prevUsers) =>
+      prevUsers.filter((usr) => usr.Sno !== selectedUser.Sno)
+    );
     setSelectedUser(null);
     setIsDeleteModalOpen(false);
   };

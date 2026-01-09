@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import emp3 from "../../assets/emp3.png";
-import EmployeeListData from "../data/EmployeeList.json";
-import EditEmployeeModal from "./EditEmployeeModal";
-import DeleteConfirmationModal from "./DeleteConfirmationModal";
-import DataTable from "../DataTable"; 
+import EmployeeListData from "@/data/EmployeeList.json";
+import EditEmployeeModal from "../../components/modals/EditEmployeeModal";
+import DeleteConfirmationModal from "../../components/modals/DeleteConfirmationModal";
+import DataTable from "../../components/common/DataTable";
 
 const Employeelist = () => {
   const [employees, setEmployees] = useState(EmployeeListData);
